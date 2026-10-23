@@ -1,0 +1,32 @@
+<?php
+/**
+ * Title block: name, category, SKU, review summary and wishlist heart.
+ *
+ * @var \Magento\Catalog\Block\Product\View $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Codilar\Twoxl\ViewModel\Pdp $pdp
+ */
+$pdp = $block->getData('pdp');
+$product = $block->getProduct();
+$category = $pdp->getPrimaryCategory($product);
+?>
+<div class="product-header">
+    <div class="product-header__title">
+        <h1 class="page-title">
+            <span class="base" data-ui-id="page-title-wrapper" itemprop="name"><?= $escaper->escapeHtml($product->getName()) ?></span>
+        </h1>
+        <?php if ($category): ?>
+            <div class="product-header__category">
+                <a href="<?= $escaper->escapeUrl($category->getUrl()) ?>"><?= $escaper->escapeHtml($category->getName()) ?></a>
+            </div>
+        <?php endif; ?>
+        <div class="product-header__sku">
+            <span class="product-header__sku-label"><?= $escaper->escapeHtml(__('SKU')) ?>:</span>
+            <span itemprop="sku"><?= $escaper->escapeHtml($product->getSku()) ?></span>
+        </div>
+    </div>
+    <div class="product-header__meta">
+        <div class="product-header__wishlist"><?= $block->getChildHtml('addto') ?></div>
+        <div class="product-header__review"><?= $block->getChildHtml('review') ?></div>
+    </div>
+</div>

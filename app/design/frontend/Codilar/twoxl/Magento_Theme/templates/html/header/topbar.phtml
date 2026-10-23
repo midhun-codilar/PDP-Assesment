@@ -1,0 +1,27 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+$items = [
+    ['label' => 'B2B Services', 'path' => 'b2b-services', 'icon' => null],
+    ['label' => 'Buy Now Pay Later', 'path' => 'easy-payment-options', 'icon' => 'images/icons/bnpl.svg'],
+    ['label' => 'Free Delivery & Installation', 'path' => 'shipping-information', 'icon' => 'images/icons/delivery.svg'],
+    ['label' => 'Easy Return & Refund', 'path' => 'returns-policy', 'icon' => 'images/icons/return.svg'],
+    ['label' => 'Join Sougha Rewards', 'path' => 'sougha-rewards', 'icon' => 'images/icons/sougha-white.png'],
+];
+?>
+<div class="twoxl-topbar">
+    <ul class="twoxl-topbar__list">
+        <?php foreach ($items as $item): ?>
+            <li class="twoxl-topbar__item">
+                <a class="twoxl-topbar__link" href="<?= $escaper->escapeUrl($block->getUrl($item['path'])) ?>">
+                    <?php if ($item['icon']): ?>
+                        <img class="twoxl-topbar__icon" width="26" height="26" alt=""
+                             src="<?= $escaper->escapeUrl($block->getViewFileUrl($item['icon'])) ?>">
+                    <?php endif; ?>
+                    <span class="twoxl-topbar__label"><?= $escaper->escapeHtml(__($item['label'])) ?></span>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>

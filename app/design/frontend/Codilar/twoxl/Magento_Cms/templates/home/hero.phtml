@@ -1,0 +1,15 @@
+<?php
+/**
+ * Full-width banner under the menu bar.
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+?>
+<section class="home-hero" style="background-image: url('<?= $escaper->escapeUrl($block->getViewFileUrl('images/home/sample-5.png')) ?>')">
+    <div class="home-hero__content">
+        <p class="home-hero__eyebrow"><?= $escaper->escapeHtml(__('Summer Sale')) ?></p>
+        <h1 class="home-hero__title"><?= $escaper->escapeHtml(__('Up to 21% off')) ?><br><em><?= $escaper->escapeHtml(__('on home essentials')) ?></em></h1>
+        <a class="home-hero__cta" href="<?= $escaper->escapeUrl($block->getUrl('furniture')) ?>"><?= $escaper->escapeHtml(__('Shop Now')) ?></a>
+    </div>
+</section>

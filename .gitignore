@@ -1,0 +1,59 @@
+# ------------------------------------------------------------------
+# Magento 2 (composer project) - Codilar 2XL
+# ------------------------------------------------------------------
+
+# Dependencies (restored with `composer install`)
+/vendor/
+/node_modules/
+
+# Secrets / environment-specific config
+/app/etc/env.php
+/auth.json
+/.env
+
+# Generated code and runtime data
+/generated/*
+!/generated/.htaccess
+/var/*
+!/var/.htaccess
+/pub/opt/magento/var/
+
+# Deployed static assets
+/pub/static/*
+!/pub/static/.htaccess
+
+# Uploaded / generated media (product images ship with Codilar_Twoxl fixtures)
+/pub/media/*
+!/pub/media/.htaccess
+!/pub/media/customer/.htaccess
+!/pub/media/downloadable/.htaccess
+!/pub/media/import/.htaccess
+!/pub/media/theme_customization/.htaccess
+
+# Local tooling configs (copy from the *.sample files)
+/Gruntfile.js
+/grunt-config.json
+/package.json
+/package-lock.json
+/dev/tools/grunt/configs/local-themes.js
+
+# Test / tool output
+/dev/tests/*/tmp/
+/dev/tests/*/var/
+/dev/tests/acceptance/tests/_output/
+/.php-cs-fixer.cache
+/.phpunit.result.cache
+
+# IDE / OS
+/.idea/
+/.vscode/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# Database dumps and archives
+*.sql
+*.sql.gz
+*.zip
+*.tar.gz

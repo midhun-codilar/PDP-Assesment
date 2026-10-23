@@ -1,0 +1,25 @@
+<?php
+/**
+ * Service promises shown under the accordions.
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$services = [
+    ['service-shipping.jpg', 36, 'Free Shipping', 'Eligible on orders above AED 500'],
+    ['service-assembly.jpg', 34, 'Free Assembly', 'Eligible on all furniture orders'],
+    ['service-warehouse.jpg', 36, 'Warehouse Pickup', 'Next day pick up available'],
+    ['service-installments.jpg', 26, 'Interest Free Installments', 'Hassle-free payments. Buy now pay later!'],
+];
+?>
+<ul class="product-services">
+    <?php foreach ($services as [$icon, $width, $title, $note]): ?>
+        <li class="product-services__item">
+            <span class="product-services__circle">
+                <img width="<?= (int)$width ?>" alt="" src="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons/' . $icon)) ?>">
+            </span>
+            <span class="product-services__title"><?= $escaper->escapeHtml(__($title)) ?></span>
+            <span class="product-services__note"><?= $escaper->escapeHtml(__($note)) ?></span>
+        </li>
+    <?php endforeach; ?>
+</ul>

@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+  2XL Home landing page: hero, category mosaics and product rows built from theme templates
+  instead of the CMS page content.
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="cms_page" remove="true"/>
+        <referenceContainer name="page.top">
+            <block class="Magento\Framework\View\Element\Template" name="twoxl.home.hero"
+                   template="Magento_Cms::home/hero.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <container name="twoxl.home" htmlTag="div" htmlClass="home">
+                <block class="Magento\Framework\View\Element\Template" name="twoxl.home.discover"
+                       template="Magento_Cms::home/discover.phtml">
+                    <arguments>
+                        <argument name="home" xsi:type="object">Codilar\Twoxl\ViewModel\Home</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Template" name="twoxl.home.promo"
+                       template="Magento_Cms::home/promo.phtml">
+                    <arguments>
+                        <argument name="home" xsi:type="object">Codilar\Twoxl\ViewModel\Home</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Template" name="twoxl.home.outdoor"
+                       template="Magento_Cms::home/products.phtml">
+                    <arguments>
+                        <argument name="home" xsi:type="object">Codilar\Twoxl\ViewModel\Home</argument>
+                        <argument name="price_formatter" xsi:type="object">Codilar\Twoxl\ViewModel\PriceFormatter</argument>
+                        <argument name="section" xsi:type="string">outdoor</argument>
+                        <argument name="title" xsi:type="string">A New Arc Of Outdoor Living!</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Template" name="twoxl.home.mosaic"
+                       template="Magento_Cms::home/mosaic.phtml">
+                    <arguments>
+                        <argument name="home" xsi:type="object">Codilar\Twoxl\ViewModel\Home</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Template" name="twoxl.home.new"
+                       template="Magento_Cms::home/products.phtml">
+                    <arguments>
+                        <argument name="home" xsi:type="object">Codilar\Twoxl\ViewModel\Home</argument>
+                        <argument name="price_formatter" xsi:type="object">Codilar\Twoxl\ViewModel\PriceFormatter</argument>
+                        <argument name="section" xsi:type="string">new-arrivals</argument>
+                        <argument name="title" xsi:type="string">Meet The New Arrivals!</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Template" name="twoxl.home.favourites"
+                       template="Magento_Cms::home/products.phtml">
+                    <arguments>
+                        <argument name="home" xsi:type="object">Codilar\Twoxl\ViewModel\Home</argument>
+                        <argument name="price_formatter" xsi:type="object">Codilar\Twoxl\ViewModel\PriceFormatter</argument>
+                        <argument name="section" xsi:type="string">favourites</argument>
+                        <argument name="title" xsi:type="string">This Season's Refined Favourites!</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

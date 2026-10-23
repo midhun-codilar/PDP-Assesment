@@ -1,0 +1,29 @@
+<?php
+/**
+ * "Designs born from artistry" category mosaic.
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Codilar\Twoxl\ViewModel\Home $home
+ */
+$home = $block->getData('home');
+?>
+<section class="home-mosaic">
+    <span class="home-rule"></span>
+    <h2 class="home-title">Designs Born From Artistry<br><em><?= $escaper->escapeHtml(__('Meant To Be Collected!')) ?></em></h2>
+    <?php foreach ($home->getMosaicRows() as $row): ?>
+        <div class="home-mosaic__row" style="--cols: <?= (int)array_sum(array_column($row, 'span')) ?>">
+            <?php foreach ($row as $tile): ?>
+                <a class="home-mosaic__tile" style="--span: <?= (int)$tile['span'] ?>"
+                   href="<?= $escaper->escapeUrl($home->getUrl($tile['url'])) ?>">
+                    <span class="home-mosaic__image">
+                        <img src="<?= $escaper->escapeUrl($block->getViewFileUrl('images/home/sample-' . $tile['image'] . '.png')) ?>"
+                             alt="<?= $escaper->escapeHtmlAttr($tile['title']) ?>" loading="lazy">
+                    </span>
+                    <span class="home-mosaic__title"><?= $escaper->escapeHtml(__($tile['title'])) ?></span>
+                    <span class="home-mosaic__text"><?= $escaper->escapeHtml(__($tile['text'])) ?></span>
+                </a>
+            <?php endforeach; ?>
+        </div>
+    <?php endforeach; ?>
+</section>

@@ -1,0 +1,20 @@
+<?php
+/**
+ * Outdoor campaign: text on the left, product shot on the right.
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Codilar\Twoxl\ViewModel\Home $home
+ */
+$home = $block->getData('home');
+?>
+<section class="home-promo">
+    <div class="home-promo__text">
+        <span class="home-rule"></span>
+        <h2 class="home-title">Made <em><?= $escaper->escapeHtml(__('For Every Arc!')) ?></em></h2>
+        <p class="home-promo__lead"><?= $escaper->escapeHtml(__('Weather Ready Materials')) ?><br><?= $escaper->escapeHtml(__('With Deep Seated Comforts!')) ?></p>
+        <a class="home-promo__link" href="<?= $escaper->escapeUrl($home->getUrl('outdoor')) ?>"><?= $escaper->escapeHtml(__('Shop The Outdoor Edit')) ?></a>
+    </div>
+    <img class="home-promo__image" loading="lazy" alt=""
+         src="<?= $escaper->escapeUrl($block->getViewFileUrl('images/home/sample-2.png')) ?>">
+</section>

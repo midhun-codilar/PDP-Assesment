@@ -1,0 +1,138 @@
+//
+//  Global bits shared by every page
+//  _____________________________________________
+
+& when (@media-common = true) {
+    //  UAE dirham glyph, drawn as a mask so it follows the text colour
+    .aed-symbol {
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23000' stroke-width='10'%3E%3Cpath d='M22 10v80h26c26 0 40-17 40-40S74 10 48 10z'/%3E%3Cpath d='M3 38h76M3 62h76'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23000' stroke-width='10'%3E%3Cpath d='M22 10v80h26c26 0 40-17 40-40S74 10 48 10z'/%3E%3Cpath d='M3 38h76M3 62h76'/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+        background-color: currentColor;
+        display: inline-block;
+        height: .82em;
+        margin-right: .08em;
+        vertical-align: -.04em;
+        width: .8em;
+    }
+
+    body {
+        color: @twoxl-black;
+        font-family: @twoxl-font;
+    }
+
+    //  Full-width content area
+    .page-main {
+        max-width: none;
+        padding-left: @twoxl-page-gutter;
+        padding-right: @twoxl-page-gutter;
+    }
+
+    .page-header {
+        margin-bottom: 0;
+    }
+
+    //  Breadcrumbs: "Home / Furniture / … / Product"
+    .breadcrumbs {
+        max-width: none;
+        padding: 28px @twoxl-page-gutter 0;
+
+        .items {
+            align-items: baseline;
+            color: @twoxl-black;
+            display: flex;
+            flex-wrap: wrap;
+            font-size: 1.6rem;
+            line-height: 24px;
+        }
+
+        .items .item {
+            align-items: baseline;
+            display: flex;
+            line-height: 24px;
+            margin: 0;
+
+            a {
+                color: @twoxl-black;
+                text-decoration: none;
+            }
+
+            strong {
+                font-weight: 600;
+            }
+
+            &:not(:last-child):after {
+                color: @twoxl-black;
+                content: '/';
+                font-family: @twoxl-font;
+                font-size: 1.6rem;
+                display: inline;
+                height: auto;
+                line-height: inherit;
+                margin: 0 5px;
+                vertical-align: baseline;
+                width: auto;
+            }
+        }
+    }
+
+    //  Floating helpers (WhatsApp and back to top) live in the footer template
+    .twoxl-whatsapp {
+        align-items: center;
+        background: @twoxl-white;
+        border-radius: 50%;
+        bottom: 20px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, .3);
+        display: flex;
+        height: 52px;
+        justify-content: center;
+        position: fixed;
+        right: 21px;
+        width: 52px;
+        z-index: 90;
+
+        img {
+            display: block;
+        }
+    }
+
+    .twoxl-back-to-top {
+        background: transparent;
+        border: 0;
+        bottom: 136px;
+        box-shadow: none;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: @twoxl-font;
+        font-size: 1.3rem;
+        font-weight: 600;
+        padding: 0;
+        position: fixed;
+        right: 40px;
+        z-index: 90;
+
+        &[hidden] {
+            display: none;
+        }
+
+        span {
+            margin-top: 2px;
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .page-main {
+        margin: 0;
+        max-width: none;
+        padding-left: @twoxl-page-gutter;
+        padding-right: @twoxl-page-gutter;
+    }
+
+    .page-wrapper > .breadcrumbs {
+        margin: 0 0 30px;
+        max-width: none;
+        padding: 35px @twoxl-page-gutter 0;
+    }
+}

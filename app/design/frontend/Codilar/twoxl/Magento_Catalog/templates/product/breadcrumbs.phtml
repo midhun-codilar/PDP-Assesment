@@ -1,0 +1,25 @@
+<?php
+/** @var \Magento\Theme\Block\Html\Breadcrumbs $block */
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var \Codilar\Twoxl\ViewModel\Pdp $pdp */
+$pdp = $block->getData('pdp');
+$product = $pdp->getProduct();
+if (!$product) {
+    return;
+}
+$crumbs = $pdp->getBreadcrumbs($product);
+$last = count($crumbs) - 1;
+?>
+<div class="breadcrumbs">
+    <ul class="items">
+        <?php foreach ($crumbs as $index => $crumb): ?>
+            <li class="item<?= $index === 0 ? ' home' : '' ?><?= $index === $last ? ' product' : '' ?>">
+                <?php if ($crumb['url'] && $index !== $last): ?>
+                    <a href="<?= $escaper->escapeUrl($crumb['url']) ?>"><?= $escaper->escapeHtml($crumb['label']) ?></a>
+                <?php else: ?>
+                    <strong><?= $escaper->escapeHtml($crumb['label']) ?></strong>
+                <?php endif; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>

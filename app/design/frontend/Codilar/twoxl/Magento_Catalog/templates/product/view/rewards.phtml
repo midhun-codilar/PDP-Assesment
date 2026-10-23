@@ -1,0 +1,19 @@
+<?php
+/**
+ * Sougha rewards teaser.
+ *
+ * @var \Magento\Catalog\Block\Product\View $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Codilar\Twoxl\ViewModel\Pdp $pdp
+ */
+$pdp = $block->getData('pdp');
+$product = $block->getProduct();
+?>
+<div class="product-rewards">
+    <img class="product-rewards__logo" width="36" height="36" alt="Sougha"
+         src="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons/sougha-white.png')) ?>">
+    <span class="product-rewards__text">
+        <?= $escaper->escapeHtml(__('Earn %1 points', $pdp->getEarnPoints($product))) ?>
+        <span class="product-rewards__info" title="<?= $escaper->escapeHtmlAttr(__('Points are credited with Sougha Rewards after delivery')) ?>">?</span>
+    </span>
+</div>

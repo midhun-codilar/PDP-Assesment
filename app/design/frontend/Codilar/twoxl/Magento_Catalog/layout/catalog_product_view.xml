@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!--
+  2XL Home product page: gallery grid on the left, buy box + accordions on the right.
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!-- Replaced by the custom header block below and the accordions -->
+        <referenceBlock name="page.main.title" remove="true"/>
+        <referenceBlock name="product.info.details" remove="true"/>
+        <referenceBlock name="product.info.overview" remove="true"/>
+        <referenceBlock name="product.info.mailto" remove="true"/>
+        <referenceBlock name="view.addto.compare" remove="true"/>
+        <referenceBlock name="product.info.stock.sku" remove="true"/>
+        <referenceBlock name="product.info.type" remove="true"/>
+
+        <referenceBlock name="breadcrumbs" template="Magento_Catalog::product/breadcrumbs.phtml">
+            <arguments>
+                <argument name="pdp" xsi:type="object">Codilar\Twoxl\ViewModel\Pdp</argument>
+            </arguments>
+        </referenceBlock>
+
+        <referenceBlock name="product.info.media.image">
+            <arguments>
+                <argument name="pdp" xsi:type="object">Codilar\Twoxl\ViewModel\Pdp</argument>
+            </arguments>
+        </referenceBlock>
+
+        <referenceContainer name="product.info.main">
+            <block class="Magento\Catalog\Block\Product\View" name="product.info.header"
+                   template="Magento_Catalog::product/view/header.phtml" before="-">
+                <arguments>
+                    <argument name="pdp" xsi:type="object">Codilar\Twoxl\ViewModel\Pdp</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Catalog\Block\Product\View" name="product.info.rewards"
+                   template="Magento_Catalog::product/view/rewards.phtml" after="product.info">
+                <arguments>
+                    <argument name="pdp" xsi:type="object">Codilar\Twoxl\ViewModel\Pdp</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Catalog\Block\Product\View" name="product.info.bnpl"
+                   template="Magento_Catalog::product/view/bnpl.phtml" after="product.info.rewards">
+                <arguments>
+                    <argument name="pdp" xsi:type="object">Codilar\Twoxl\ViewModel\Pdp</argument>
+                    <argument name="price_formatter" xsi:type="object">Codilar\Twoxl\ViewModel\PriceFormatter</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Catalog\Block\Product\View" name="product.info.warehouse"
+                   template="Magento_Catalog::product/view/warehouse.phtml" after="product.info.bnpl"/>
+            <block class="Magento\Catalog\Block\Product\View\Attributes" name="product.info.accordion"
+                   template="Magento_Catalog::product/view/accordion.phtml" after="product.info.warehouse"/>
+            <block class="Magento\Framework\View\Element\Template" name="product.info.services"
+                   template="Magento_Catalog::product/view/services.phtml" after="product.info.accordion"/>
+        </referenceContainer>
+
+        <!-- Review summary and wishlist heart are rendered inside the header block -->
+        <move element="product.info.review" destination="product.info.header" as="review"/>
+        <move element="product.info.addto" destination="product.info.header" as="addto"/>
+
+        <referenceBlock name="product.price.final">
+            <arguments>
+                <argument name="price_formatter" xsi:type="object">Codilar\Twoxl\ViewModel\PriceFormatter</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

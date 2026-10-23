@@ -1,0 +1,51 @@
+<?php
+/**
+ * @var \Magento\Catalog\Block\Product\View $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$_product = $block->getProduct();
+$buttonTitle = __('Add to Cart');
+$quantityValidators = $block->getQuantityValidators();
+$maxQty = $quantityValidators['validate-item-quantity']['maxAllowed'] ?? 10000;
+?>
+<?php if ($_product->isSaleable()): ?>
+<div class="box-tocart">
+    <div class="fieldset">
+        <?php if ($block->shouldRenderQuantity()): ?>
+        <label class="label qty-label" for="qty"><span><?= $escaper->escapeHtml(__('Quantity')) ?></span></label>
+        <div class="field qty">
+            <div class="control" data-mage-init='{"js/qty-stepper":{"min":1,"max":<?= (int)$maxQty ?>}}'>
+                <button type="button" class="qty-step qty-step--minus" data-qty-step="-1"
+                        aria-label="<?= $escaper->escapeHtmlAttr(__('Decrease quantity')) ?>">-</button>
+                <input type="number"
+                       name="qty"
+                       id="qty"
+                       min="1"
+                       value="<?= (float)$block->getProductDefaultQty() * 1 ?>"
+                       title="<?= $escaper->escapeHtmlAttr(__('Qty')) ?>"
+                       class="input-text qty"
+                       data-validate="<?= $escaper->escapeHtmlAttr(json_encode($quantityValidators)) ?>"/>
+                <button type="button" class="qty-step qty-step--plus" data-qty-step="1"
+                        aria-label="<?= $escaper->escapeHtmlAttr(__('Increase quantity')) ?>">+</button>
+            </div>
+        </div>
+        <?php endif; ?>
+        <div class="actions">
+            <button type="submit"
+                    title="<?= $escaper->escapeHtmlAttr($buttonTitle) ?>"
+                    class="action primary tocart"
+                    id="product-addtocart-button" disabled>
+                <span><?= $escaper->escapeHtml($buttonTitle) ?></span>
+            </button>
+            <?= $block->getChildHtml('', true) ?>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>

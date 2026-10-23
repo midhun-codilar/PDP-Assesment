@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+  Shared page chrome for every page of the Codilar 2XL Home theme:
+  sticky header (top bar, logo/search/actions row, category menu) and footer.
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!-- Top bar replaces the default account / language panel -->
+        <referenceBlock name="top.links" remove="true"/>
+        <referenceBlock name="store_language" remove="true"/>
+        <referenceContainer name="header.panel.wrapper">
+            <block class="Magento\Framework\View\Element\Template" name="twoxl.topbar"
+                   template="Magento_Theme::html/header/topbar.phtml" after="header.panel"/>
+        </referenceContainer>
+
+        <!-- Logo | search | actions row -->
+        <referenceBlock name="advanced-search-link" remove="true"/>
+        <referenceBlock name="logo">
+            <arguments>
+                <argument name="logo_width" xsi:type="number">56</argument>
+                <argument name="logo_height" xsi:type="number">78</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceContainer name="header-wrapper">
+            <container name="twoxl.header.actions" htmlTag="div" htmlClass="header-actions" after="-">
+                <block class="Magento\Framework\View\Element\Template" name="twoxl.header.account"
+                       template="Magento_Theme::html/header/account.phtml" before="-"/>
+                <block class="Magento\Framework\View\Element\Template" name="twoxl.header.location"
+                       template="Magento_Theme::html/header/location.phtml" after="-"/>
+            </container>
+        </referenceContainer>
+        <move element="minicart" destination="twoxl.header.actions" after="twoxl.header.account"/>
+
+        <!-- Footer -->
+        <referenceContainer name="footer" remove="true"/>
+        <referenceContainer name="footer-container">
+            <block class="Magento\Framework\View\Element\Template" name="twoxl.footer"
+                   template="Magento_Theme::html/footer.phtml">
+                <block class="Magento\Framework\View\Element\FormKey" name="twoxl.footer.formkey"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

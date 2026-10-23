@@ -1,0 +1,17 @@
+<?php
+/**
+ * @var \Magento\Catalog\Block\Product\View $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+?>
+<div class="product-warehouse">
+    <img class="product-warehouse__icon" width="34" height="47" alt=""
+         src="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons/warehouse.jpg')) ?>">
+    <div class="product-warehouse__content">
+        <h2 class="product-warehouse__title"><?= $escaper->escapeHtml(__('Warehouse')) ?></h2>
+        <p class="product-warehouse__text">
+            <?= $escaper->escapeHtml(__('Eligible for Warehouse Pickup.')) ?>
+            <a href="<?= $escaper->escapeUrl($block->getUrl('click-n-collect-tnc')) ?>"><?= $escaper->escapeHtml(__('Learn more')) ?></a>
+        </p>
+    </div>
+</div>

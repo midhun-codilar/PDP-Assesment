@@ -1,0 +1,28 @@
+<?php
+/**
+ * "Discover Timeless Designs" intro text plus the Living / Dining / Bedroom / Decor tiles.
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Codilar\Twoxl\ViewModel\Home $home
+ */
+$home = $block->getData('home');
+?>
+<section class="home-discover">
+    <div class="home-discover__intro">
+        <span class="home-rule"></span>
+        <h2 class="home-title">Discover Timeless <em><?= $escaper->escapeHtml(__('Designs!')) ?></em></h2>
+        <p class="home-discover__tagline"><?= $escaper->escapeHtml(__('Crafted With Precision, Perfected For Timelessness.')) ?></p>
+    </div>
+    <?php foreach ($home->getDiscoverTiles() as $key => $tile): ?>
+        <a class="home-discover__tile home-discover__tile--<?= $escaper->escapeHtmlAttr($key) ?>"
+           href="<?= $escaper->escapeUrl($home->getUrl($tile['url'])) ?>">
+            <img src="<?= $escaper->escapeUrl($block->getViewFileUrl('images/home/sample-' . $tile['image'] . '.png')) ?>"
+                 alt="<?= $escaper->escapeHtmlAttr($tile['label']) ?>" loading="lazy"
+                 style="object-position: <?= $escaper->escapeHtmlAttr($tile['position']) ?>">
+            <?php if ($key === 'dining'): ?>
+                <span class="home-discover__label"><?= $escaper->escapeHtml(__($tile['label'])) ?></span>
+            <?php endif; ?>
+        </a>
+    <?php endforeach; ?>
+</section>

@@ -1,0 +1,30 @@
+<?php
+/**
+ * Price amount: dirham glyph + number (no ".00" on whole amounts).
+ *
+ * @var \Magento\Framework\Pricing\Render\Amount $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$value = (float)$block->getDisplayValue();
+$decimals = abs($value - round($value)) < 0.005 ? 0 : 2;
+$isAed = $block->getDisplayCurrencyCode() === 'AED';
+?>
+<span class="price-container <?= $escaper->escapeHtmlAttr($block->getAdjustmentCssClasses()) ?>"
+        <?= $block->getSchema() ? ' itemprop="offers" itemscope itemtype="http://schema.org/Offer"' : '' ?>>
+    <?php if ($block->getDisplayLabel()): ?>
+        <span class="price-label"><?= $escaper->escapeHtml($block->getDisplayLabel()) ?></span>
+    <?php endif; ?>
+    <span <?php if ($block->getPriceId()): ?> id="<?= $escaper->escapeHtmlAttr($block->getPriceId()) ?>"<?php endif; ?>
+        <?= ($block->getPriceDisplayLabel()) ? 'data-label="' . $escaper->escapeHtmlAttr($block->getPriceDisplayLabel() . $block->getPriceDisplayInclExclTaxes()) . '"' : '' ?>
+        data-price-amount="<?= $escaper->escapeHtmlAttr($block->getDisplayValue()) ?>"
+        data-price-type="<?= $escaper->escapeHtmlAttr($block->getPriceType()) ?>"
+        class="price-wrapper <?= $escaper->escapeHtmlAttr($block->getPriceWrapperCss()) ?>"
+    ><?php if ($isAed): ?><span class="price"><i class="aed-symbol" role="img" aria-label="AED"></i><?= $escaper->escapeHtml(number_format($value, $decimals, '.', ',')) ?></span><?php else: ?><?= $escaper->escapeHtml($block->formatCurrency($block->getDisplayValue(), (bool)$block->getIncludeContainer()), ['span']) ?><?php endif; ?></span>
+    <?php if ($block->hasAdjustmentsHtml()): ?>
+        <?= $block->getAdjustmentsHtml() ?>
+    <?php endif; ?>
+    <?php if ($block->getSchema()): ?>
+        <meta itemprop="price" content="<?= $escaper->escapeHtmlAttr($block->getDisplayValue()) ?>" />
+        <meta itemprop="priceCurrency" content="<?= $escaper->escapeHtmlAttr($block->getDisplayCurrencyCode()) ?>" />
+    <?php endif; ?>
+</span>

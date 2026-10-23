@@ -1,0 +1,18 @@
+{
+    "name": "codilar/theme-frontend-twoxl",
+    "description": "Codilar 2XL Home frontend theme",
+    "type": "magento2-theme",
+    "version": "1.0.0",
+    "license": "proprietary",
+    "require": {
+        "magento/theme-frontend-blank": "*"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Codilar\\TwoXl\\": ""
+        }
+    }
+}

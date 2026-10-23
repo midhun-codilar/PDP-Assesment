@@ -1,0 +1,26 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<div class="header-region">
+    <button type="button" class="header-action header-action--region" aria-haspopup="true" aria-label="<?= $escaper->escapeHtmlAttr(__('Country and language')) ?>">
+        <svg class="header-icon" width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+            <circle cx="13" cy="13" r="11"/>
+            <ellipse cx="13" cy="13" rx="4.6" ry="11"/>
+            <path d="M13 2v22M2.5 9.5h21M2.5 16.5h21" stroke-width="1.3"/>
+        </svg>
+        <svg class="header-caret" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
+    </button>
+    <ul class="header-region__menu">
+        <li class="is-current"><?= $escaper->escapeHtml(__('United Arab Emirates')) ?> (AED)</li>
+        <li><?= $escaper->escapeHtml(__('Oman')) ?> (OMR)</li>
+    </ul>
+</div>
+<a class="header-action header-action--account" href="<?= $escaper->escapeUrl($block->getUrl('customer/account')) ?>"
+   title="<?= $escaper->escapeHtmlAttr(__('My Account')) ?>">
+    <svg class="header-icon" width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+        <circle cx="13" cy="8" r="5"/>
+        <path d="M2.5 23.5c0-5 4.2-7.8 10.5-7.8s10.5 2.8 10.5 7.8z" stroke-linejoin="round"/>
+    </svg>
+    <span class="header-action__text"><?= $escaper->escapeHtml(__('My Account')) ?></span>
+</a>

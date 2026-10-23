@@ -1,0 +1,12 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<a class="header-action header-action--location" href="<?= $escaper->escapeUrl($block->getUrl('store-location')) ?>"
+   title="<?= $escaper->escapeHtmlAttr(__('Store Locator')) ?>">
+    <svg class="header-icon" width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+        <path d="M13 24.5s8-7 8-13.5a8 8 0 1 0-16 0c0 6.500 8 13.500 8 13.500z" stroke-linejoin="round"/>
+        <circle cx="13" cy="11" r="3"/>
+    </svg>
+    <span class="header-action__text"><?= $escaper->escapeHtml(__('Store Locator')) ?></span>
+</a>

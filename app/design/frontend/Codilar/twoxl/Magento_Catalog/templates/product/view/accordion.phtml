@@ -1,0 +1,47 @@
+<?php
+/**
+ * "Product Description" and "Shipping and Returns" accordions.
+ *
+ * @var \Magento\Catalog\Block\Product\View\Attributes $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$product = $block->getProduct();
+/** @var \Magento\Catalog\Helper\Output $outputHelper */
+$outputHelper = $this->helper(\Magento\Catalog\Helper\Output::class);
+$description = (string)$outputHelper->productAttribute($product, $product->getDescription(), 'description');
+$specs = $block->getAdditionalData();
+?>
+<div class="product-accordion">
+    <div class="product-accordion__item"
+         data-mage-init='{"collapsible":{"openedState":"active","collapsible":true,"active":true}}'>
+        <div class="product-accordion__title" data-role="title">
+            <h2 class="product-accordion__heading" data-role="trigger"><?= $escaper->escapeHtml(__('Product Description')) ?></h2>
+        </div>
+        <div class="product-accordion__content" data-role="content">
+            <?php if ($description): ?>
+                <div class="product-description" itemprop="description"><?= /* @noEscape */ $description ?></div>
+            <?php endif; ?>
+            <?php if ($specs): ?>
+                <dl class="product-specs">
+                    <?php foreach ($specs as $spec): ?>
+                        <div class="product-specs__row product-specs__row--<?= $escaper->escapeHtmlAttr($spec['code']) ?>">
+                            <dt class="product-specs__label"><?= $escaper->escapeHtml($spec['label']) ?>:</dt>
+                            <dd class="product-specs__value"><?= /* @noEscape */ $escaper->escapeHtml($spec['value'], ['ul', 'li', 'br', 'strong', 'b']) ?></dd>
+                        </div>
+                    <?php endforeach; ?>
+                </dl>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <div class="product-accordion__item"
+         data-mage-init='{"collapsible":{"openedState":"active","collapsible":true,"active":false}}'>
+        <div class="product-accordion__title" data-role="title">
+            <h2 class="product-accordion__heading" data-role="trigger"><?= $escaper->escapeHtml(__('Shipping and Returns')) ?></h2>
+        </div>
+        <div class="product-accordion__content" data-role="content">
+            <p><?= $escaper->escapeHtml(__('The delivery schedule will depend on the item and the time when you placed the order. The standard delivery for accessories is 2-3 working days and for furniture, it takes 5-7 working days.')) ?>
+                <a href="<?= $escaper->escapeUrl($block->getUrl('shipping-information')) ?>"><strong><?= $escaper->escapeHtml(__('Learn more')) ?></strong></a></p>
+        </div>
+    </div>
+</div>

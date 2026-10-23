@@ -1,0 +1,1227 @@
+//
+//  Product page: gallery grid, buy box, promo cards, accordions, service icons
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .catalog-product-view {
+        //  --- Gallery ----------------------------------------------------
+        .product.media {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        //  own stacking context: nothing in the gallery can paint above the sticky header
+        .product-gallery {
+            display: grid;
+            gap: 6px;
+            grid-template-columns: 1fr 1fr;
+            isolation: isolate;
+            position: relative;
+            z-index: 0;
+
+            &__item {
+                margin: 0;
+
+                img {
+                    background: #f6f6f6;
+                    display: block;
+                    height: auto;
+                    width: 100%;
+                }
+
+                //  1st image of every row of three spans the whole width
+                &:nth-of-type(3n + 1) {
+                    grid-column: 1 / -1;
+                }
+            }
+        }
+
+        .product-label {
+            border-radius: 2px;
+            color: @twoxl-white;
+            font-family: @twoxl-font-ui;
+            font-size: 1.2rem;
+            font-weight: 600;
+            line-height: 19px;
+            padding: 0 12px;
+            position: absolute;
+            right: 13px;
+            top: 28px;
+            z-index: 2;
+
+            &--new {
+                background: #593c39;
+            }
+        }
+
+        //  --- Title block --------------------------------------------------
+        .product-info-main {
+            margin-bottom: 40px;
+            margin-top: 14px;
+        }
+
+        .product-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+
+            &__title {
+                min-width: 0;
+            }
+
+            .page-title {
+                font-size: 2.4rem;
+                font-weight: 350;
+                letter-spacing: 1px;
+                line-height: 1.15;
+                margin: 0;
+                text-transform: uppercase;
+            }
+
+            &__category,
+            &__sku {
+                font-size: 1.4rem;
+                line-height: 23px;
+                text-transform: uppercase;
+
+                a {
+                    color: @twoxl-black;
+                    text-decoration: none;
+                }
+            }
+
+            &__sku-label {
+                margin-right: 3px;
+            }
+
+            &__meta {
+                align-items: center;
+                display: flex;
+                flex-direction: row-reverse;
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .product-reviews-summary {
+                margin: 0;
+                padding: 0;
+
+                .reviews-actions {
+                    font-size: 1.6rem;
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .action.add,
+                .action.view {
+                    color: @twoxl-black;
+                    font-weight: 600;
+                    text-decoration: none;
+                }
+
+                .reviews-actions {
+                    margin-right: -6px;
+                }
+
+                .rating-summary {
+                    margin-right: 10px;
+                }
+            }
+        }
+
+        //  Wishlist link is shown as an outlined heart
+        .product-header__wishlist {
+            margin-right: 6px;
+
+            .product-addto-links {
+                margin: 0;
+            }
+
+            .action.towishlist {
+                background: url('../images/icons/heart.svg') center / contain no-repeat;
+                border: 0;
+                box-shadow: none;
+                display: block;
+                height: 30px;
+                overflow: hidden;
+                text-indent: -9999px;
+                width: 32px;
+
+                &:before {
+                    display: none;
+                }
+            }
+        }
+
+        //  --- Price ------------------------------------------------------------
+        .product-info-price {
+            margin: 36px 0 0;
+
+            .price-box {
+                display: flex;
+                flex-direction: column;
+                margin: 0;
+            }
+
+            .old-price {
+                color: @twoxl-muted;
+                font-size: 1.6rem;
+                line-height: 1.3;
+                order: 1;
+
+                .price-label {
+                    display: none;
+                }
+
+                .price {
+                    font-weight: 400;
+                    text-decoration: line-through;
+                }
+            }
+
+            .special-price {
+                align-items: baseline;
+                display: flex;
+                margin-top: 0;
+                order: 2;
+
+                .price-label {
+                    display: none;
+                }
+
+                .price {
+                    font-size: 2.8rem;
+                    font-weight: 400;
+                    line-height: 1.3;
+                }
+            }
+
+            .discount-badge {
+                color: @twoxl-danger;
+                font-size: 1.5rem;
+                margin-left: 6px;
+            }
+        }
+
+        //  --- Quantity + add to cart -----------------------------------------------
+        .box-tocart {
+            margin: 12px 0 0;
+
+            .fieldset {
+                column-gap: 6px;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                margin: 0;
+            }
+
+            .qty-label {
+                font-size: 1.85rem;
+                font-weight: 400;
+                grid-column: 1 / -1;
+                margin: 0 0 10px;
+                text-transform: uppercase;
+            }
+
+            .field.qty {
+                margin: 0;
+                padding: 0;
+
+                .control {
+                    align-items: center;
+                    border: 1px solid @twoxl-black;
+                    box-sizing: border-box;
+                    display: flex;
+                    height: 50px;
+                    justify-content: center;
+                    width: 100%;
+                }
+
+                input.qty {
+                    -moz-appearance: textfield;
+                    background: transparent;
+                    border: 0;
+                    box-shadow: none;
+                    font-size: 2rem;
+                    height: 48px;
+                    margin: 0;
+                    padding: 0;
+                    text-align: center;
+                    width: 36px;
+
+                    &::-webkit-outer-spin-button,
+                    &::-webkit-inner-spin-button {
+                        -webkit-appearance: none;
+                        margin: 0;
+                    }
+                }
+            }
+
+            .qty-step {
+                background: transparent;
+                border: 0;
+                box-shadow: none;
+                color: @twoxl-black;
+                cursor: pointer;
+                font-family: @twoxl-font;
+                font-size: 2rem;
+                font-weight: 300;
+                height: 48px;
+                line-height: 48px;
+                padding: 0;
+                width: 36px;
+            }
+
+            .actions {
+                display: block;
+            }
+
+            .action.primary.tocart {
+                background: @twoxl-black;
+                border: 1px solid @twoxl-black;
+                border-radius: 0;
+                color: @twoxl-white;
+                font-family: @twoxl-font;
+                font-size: 1.6rem;
+                font-weight: 400;
+                height: 50px;
+                line-height: 48px;
+                padding: 0;
+                text-transform: uppercase;
+                width: 100%;
+            }
+        }
+
+        //  --- Sougha rewards -----------------------------------------------------
+        .product-rewards {
+            align-items: center;
+            display: flex;
+            margin-top: 54px;
+
+            &__logo {
+                display: block;
+                filter: invert(1);
+                height: 36px;
+                width: 36px;
+            }
+
+            &__text {
+                font-size: 1.3rem;
+                margin-left: 9px;
+                text-transform: uppercase;
+            }
+
+            &__info {
+                border: 1px solid #555;
+                border-radius: 50%;
+                cursor: help;
+                display: inline-block;
+                font-size: .8rem;
+                height: 10px;
+                line-height: 9px;
+                margin-left: 3px;
+                text-align: center;
+                vertical-align: 1px;
+                width: 10px;
+            }
+        }
+
+        //  --- Tabby / Tamara cards ----------------------------------------------
+        .bnpl {
+            font-family: @twoxl-font-ui;
+            margin-top: 11px;
+            max-width: 400px;
+        }
+
+        .bnpl-card {
+            align-items: center;
+            background: @twoxl-white;
+            border: 1px solid #d6d3d0;
+            border-radius: 8px;
+            display: flex;
+            font-size: 1.55rem;
+            justify-content: space-between;
+            line-height: 1.25;
+            margin-bottom: 18px;
+            padding: 15px 17px 15px 16px;
+
+            &__text {
+                margin: 0;
+                max-width: 300px;
+            }
+
+            .aed-symbol {
+                height: .85em;
+                width: .85em;
+            }
+
+            &--tamara {
+                border-color: #e4e2ee;
+                font-size: 1.4rem;
+                padding: 19px 17px 19px 20px;
+            }
+
+
+            &__more {
+                color: #25282a;
+                text-decoration: underline;
+            }
+        }
+
+        .bnpl-badge {
+            border-radius: 8px;
+            color: @twoxl-black;
+            flex: 0 0 auto;
+            font-family: 'Inter', Arial, sans-serif;
+            font-weight: 800;
+            letter-spacing: -.5px;
+            line-height: 1;
+            text-align: center;
+
+            &--tabby {
+                background: #3bff8f;
+                font-size: 1.9rem;
+                padding: 5px 7px;
+            }
+
+            &--tamara {
+                background: linear-gradient(110deg, #fbb9a0 0%, #f7b4cc 30%, #bde2fb 58%, #b99ede 85%, #a77fd8 100%);
+                box-sizing: border-box;
+                font-size: 1.9rem;
+                padding: 6px 10px;
+                width: 93px;
+            }
+        }
+
+        .bnpl-card--tamara .bnpl-card__text {
+            max-width: 235px;
+        }
+
+        .bnpl-card--tabby .bnpl-card__link {
+            color: #3b7ddd;
+            display: block;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .product-accordion__item.active .product-accordion__title:after {
+            content: '\2013';
+        }
+
+        //  --- Warehouse pickup ------------------------------------------------------
+        .product-warehouse {
+            align-items: flex-start;
+            display: flex;
+            gap: 23px;
+            margin-top: 32px;
+
+            &__icon {
+                display: block;
+                flex: 0 0 auto;
+            }
+
+            &__title {
+                font-size: 1.6rem;
+                font-weight: 400;
+                line-height: 22px;
+                margin: 4px 0 40px;
+                text-transform: uppercase;
+            }
+
+            &__text {
+                font-family: 'Times New Roman', Times, serif;
+                font-size: 1.3rem;
+                font-weight: 600;
+                margin: 0;
+
+                a {
+                    color: #5bc0de;
+                    margin-left: 6px;
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        //  --- Accordions ------------------------------------------------------------
+        .product-accordion {
+            margin-top: 12px;
+
+            &__item {
+                border-bottom: 2px solid @twoxl-black;
+            }
+
+            &__title {
+                cursor: pointer;
+                padding: 40px 0;
+                position: relative;
+
+                &:after {
+                    content: '+';
+                    font-size: 2rem;
+                    line-height: 1;
+                    position: absolute;
+                    right: 16px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+            }
+
+            &__heading {
+                font-size: 2rem;
+                font-weight: 400;
+                line-height: 24px;
+                margin: 0;
+                text-transform: uppercase;
+            }
+
+            &__content {
+                padding: 0 0 22px 10px;
+
+                p {
+                    margin: 0 0 8px;
+                }
+
+                ul {
+                    list-style: disc;
+                    margin: 0;
+                    padding-left: 10px;
+
+                    li {
+                        font-size: 1.45rem;
+                        font-weight: 300;
+                        line-height: 21px;
+                        margin: 0;
+                    }
+                }
+
+                a {
+                    text-decoration: none;
+                }
+            }
+        }
+
+        .product-description {
+            font-size: 1.5rem;
+            line-height: 19px;
+            padding-right: 30px;
+        }
+
+        .product-specs {
+            display: grid;
+            gap: 0 0;
+            grid-template-columns: 47.9% 1fr;
+            margin: 30px 0 0;
+
+            &__row {
+                margin: 0 0 8px;
+            }
+
+            &__label {
+                font-size: 1.5rem;
+                font-weight: 400;
+                line-height: 20px;
+                margin: 0;
+                text-transform: uppercase;
+            }
+
+            &__value {
+                color: @twoxl-muted;
+                font-size: 1.4rem;
+                font-weight: 300;
+                line-height: 23px;
+                margin: 0;
+
+                ul {
+                    margin-top: 4px;
+                    padding-left: 10px;
+
+                    li {
+                        font-size: 1.3rem;
+                    }
+                }
+            }
+        }
+
+        //  --- Service promises ------------------------------------------------------
+        .product-services {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            list-style: none;
+            margin: 26px 2px 0 6px;
+            padding: 0;
+
+            &__item {
+                align-items: center;
+                display: flex;
+                flex: 0 0 50%;
+                flex-direction: column;
+                margin: 0 0 20px;
+                text-align: center;
+                text-transform: uppercase;
+            }
+
+            &__circle {
+                align-items: center;
+                border: 1px solid @twoxl-black;
+                border-radius: 50%;
+                display: flex;
+                box-sizing: border-box;
+                height: 90px;
+                justify-content: center;
+                margin-bottom: 8px;
+                width: 90px;
+
+                img {
+                    display: block;
+                    height: auto;
+                }
+            }
+
+            &__title {
+                font-size: 1.3rem;
+                letter-spacing: -.1px;
+                line-height: 15px;
+                max-width: 87px;
+            }
+
+            &__note {
+                font-size: .8rem;
+                line-height: 10px;
+                margin-top: 3px;
+            }
+        }
+
+        //  --- Tabby / Tamara modals ---------------------------------------------
+        &.bnpl-modal-open {
+            overflow: hidden;
+        }
+
+        .bnpl-card[data-bnpl-open] {
+            cursor: pointer;
+        }
+
+        .bnpl-modal {
+            align-items: center;
+            background: rgba(0, 0, 0, .6);
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            left: 0;
+            position: fixed;
+            right: 0;
+            top: 0;
+            z-index: 1100;
+
+            &[hidden] {
+                display: none;
+            }
+
+            &__dialog {
+                box-sizing: border-box;
+                max-height: 100%;
+                overflow-y: auto;
+                position: relative;
+                scrollbar-width: none;
+                width: 100%;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+            }
+
+            &__close {
+                background: #f3f3f3;
+                border: 0;
+                border-radius: 50%;
+                cursor: pointer;
+                height: 32px;
+                padding: 0;
+                width: 32px;
+
+                &:before,
+                &:after {
+                    background: #000;
+                    content: '';
+                    height: 14px;
+                    left: 50%;
+                    margin: -7px 0 0 -.5px;
+                    position: absolute;
+                    top: 50%;
+                    transform: rotate(45deg);
+                    width: 1.5px;
+                }
+
+                &:after {
+                    transform: rotate(-45deg);
+                }
+            }
+        }
+
+        .bnpl-modal strong,
+        .bnpl-modal h2,
+        .bnpl-modal h3 {
+            font-family: @twoxl-font-ui;
+        }
+
+        .bnpl-modal {
+            color: #111;
+            font-family: @twoxl-font-ui;
+            font-size: 1.5rem;
+            line-height: 1.3;
+
+            //  :where keeps the reset below the specificity of the component rules
+            :where(ul, ol) {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            :where(h2, h3, p) {
+                margin: 0;
+            }
+        }
+
+        .bnpl-pay-icons {
+            align-items: center;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .pay-icon {
+            align-items: center;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            display: inline-flex;
+            font-size: .9rem;
+            font-weight: 700;
+            height: 20px;
+            justify-content: center;
+            width: 30px;
+
+            &--visa {
+                color: #1a1f71;
+                font-size: 1rem;
+                font-style: italic;
+            }
+
+            &--mc {
+                background: radial-gradient(circle at 10px 10px, #eb001b 6px, transparent 6.5px),
+                    radial-gradient(circle at 20px 10px, #f79e1b 6px, transparent 6.5px) #fff;
+            }
+
+            &--gpay {
+                font-size: .85rem;
+            }
+        }
+
+        //  Tamara
+        .bnpl-modal--tamara {
+            .bnpl-modal__dialog {
+                background: #fff;
+                border-radius: 28px;
+                max-height: calc(100% - 100px);
+                max-width: 594px;
+            }
+
+            .bnpl-modal__close {
+                position: absolute;
+                right: 24px;
+                top: 24px;
+            }
+        }
+
+        .tamara-modal__head {
+            padding: 48px 24px 0;
+            text-align: center;
+
+            .bnpl-badge {
+                display: inline-block;
+                font-size: 1.7rem;
+                padding: 6px 10px;
+                width: auto;
+            }
+        }
+
+        .tamara-modal__title {
+            color: #1a1740;
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            line-height: 1.07;
+            margin-top: 22px;
+        }
+
+        .tamara-modal__sub {
+            color: #333;
+            font-size: 1.6rem;
+            margin: 20px 0 54px;
+
+            strong {
+                font-weight: 500;
+            }
+        }
+
+        .tamara-modal__plans-title {
+            font-size: 1.6rem;
+            font-weight: 400;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+
+        .tamara-plans {
+            padding: 0 24px;
+        }
+
+        .tamara-plan {
+            align-items: center;
+            border: 1px solid #e6e6ee;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 13px;
+            padding: 15px 16px 14px;
+
+            strong {
+                display: block;
+                font-size: 1.7rem;
+                font-weight: 600;
+            }
+
+            &__note {
+                color: #666;
+                display: block;
+                font-size: 1.5rem;
+                margin-top: 2px;
+
+                &.is-free {
+                    color: #007b82;
+                }
+            }
+
+            &__tag {
+                background: #f7f3ff;
+                border-radius: 6px;
+                color: #8a1fd3;
+                font-size: 1.2rem;
+                font-weight: 500;
+                padding: 5px 8px;
+            }
+        }
+
+        .tamara-how {
+            border: 1px solid #ececf3;
+            border-radius: 20px;
+            margin: 32px 24px 20px;
+            padding: 24px;
+
+            h3 {
+                font-size: 2.4rem;
+                font-weight: 600;
+                letter-spacing: -.5px;
+                margin-bottom: 20px;
+            }
+
+            ol {
+                counter-reset: tamara;
+            }
+
+            li {
+                counter-increment: tamara;
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 24px;
+                padding-left: 42px;
+                position: relative;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                &:before {
+                    border: 1px solid #e3e3ea;
+                    border-radius: 50%;
+                    box-sizing: border-box;
+                    color: #555;
+                    content: counter(tamara);
+                    font-size: 1.2rem;
+                    height: 26px;
+                    left: 0;
+                    line-height: 24px;
+                    position: absolute;
+                    text-align: center;
+                    top: -2px;
+                    width: 26px;
+                }
+
+                strong {
+                    font-size: 1.6rem;
+                    font-weight: 500;
+                }
+
+                span {
+                    color: #555;
+                    font-size: 1.4rem;
+                    margin-top: 6px;
+                }
+            }
+        }
+
+        .tamara-why {
+            background: #f7f7ff;
+            padding: 36px 24px 28px;
+
+            h3 {
+                border-bottom: 1px solid #ececf3;
+                font-size: 2rem;
+                font-weight: 400;
+                padding-bottom: 28px;
+                text-align: center;
+            }
+
+            &__items {
+                border-bottom: 1px solid #e3e3ea;
+                display: flex;
+                font-size: 1.4rem;
+                justify-content: space-around;
+                padding: 28px 0 22px;
+                text-align: center;
+            }
+
+            &__icon {
+                border-radius: 50%;
+                display: block;
+                height: 36px;
+                margin: 0 auto 10px;
+                width: 36px;
+
+                &--green {
+                    background: #3de58f url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='%230a3d24'%3E%3Ccircle cx='9.5' cy='8' r='3.2'/%3E%3Cpath d='M3 18.5c0-2.8 3.2-4.3 6.5-4.3s6.5 1.500 6.500 4.300z'/%3E%3C/g%3E%3Cpath d='M15.500 9.500l1.800 1.800 3.200-3.400' fill='none' stroke='%230a3d24' stroke-width='1.800' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 26px no-repeat;
+                }
+
+                &--pink {
+                    background: #ffd1ea url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23750048' fill-rule='evenodd' d='M4 5h16a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V7a2 2 0 012-2zm-.5 4v2h17V9zm0 4.500V17h5z'/%3E%3Cpath d='M3.500 3.500l17 17' stroke='%23ffd1ea' stroke-width='4.500'/%3E%3Cpath d='M3.500 3.500l17 17' stroke='%23750048' stroke-width='2'/%3E%3C/svg%3E") center / 26px no-repeat;
+                }
+            }
+
+            &__legal {
+                border-bottom: 1px solid #e3e3ea;
+                color: #444;
+                font-size: 1.2rem;
+                line-height: 1.65;
+                padding: 22px 0;
+
+                a {
+                    color: #444;
+                    text-decoration: underline;
+                }
+            }
+
+            .bnpl-pay-icons {
+                margin-top: 22px;
+            }
+        }
+
+        //  Tabby
+        .bnpl-modal--tabby {
+            .bnpl-modal__dialog {
+                background: #f5f3f1;
+                border-radius: 28px;
+                max-height: calc(100% - 36px);
+                max-width: 440px;
+                padding: 0 16px 14px;
+            }
+
+            .bnpl-modal__close {
+                background: transparent;
+                position: relative;
+
+                &:before,
+                &:after {
+                    height: 18px;
+                    width: 2px;
+                }
+            }
+        }
+
+        .tabby-modal__head {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 8px 14px;
+        }
+
+        .tabby-modal__logo {
+            font-family: 'Inter', Arial, sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            line-height: 1;
+        }
+
+        .tabby-modal__art svg {
+            border-radius: 18px;
+            display: block;
+            height: auto;
+            width: 100%;
+        }
+
+        .tabby-modal__title {
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: -.5px;
+            margin-top: 24px;
+        }
+
+        .tabby-modal__sub {
+            font-size: 1.4rem;
+            margin: 6px 0 30px;
+        }
+
+        .tabby-plan,
+        .tabby-how,
+        .tabby-note {
+            background: #fff;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+
+        .tabby-plan {
+            align-items: flex-start;
+            display: flex;
+            font-size: 1.5rem;
+            justify-content: space-between;
+            padding: 20px 20px 18px;
+
+            span {
+                display: block;
+                font-weight: 500;
+            }
+
+            small {
+                color: #777;
+                display: block;
+                font-size: 1.4rem;
+                margin-top: 4px;
+
+                &.is-free {
+                    color: #00a650;
+                }
+            }
+
+            strong {
+                font-weight: 500;
+            }
+        }
+
+        .tabby-how {
+            padding: 20px 20px 12px;
+
+            h3 {
+                font-size: 2rem;
+                font-weight: 800;
+                letter-spacing: -.3px;
+                margin-bottom: 18px;
+            }
+
+            ol {
+                counter-reset: tabby;
+            }
+
+            li {
+                counter-increment: tabby;
+                font-size: 1.5rem;
+                line-height: 22px;
+                margin-bottom: 20px;
+                padding-left: 48px;
+                position: relative;
+
+                &:before {
+                    background: #f5f3f1;
+                    border-radius: 50%;
+                    content: counter(tabby);
+                    font-size: 1.3rem;
+                    font-weight: 600;
+                    height: 32px;
+                    left: 0;
+                    line-height: 32px;
+                    position: absolute;
+                    text-align: center;
+                    top: -4px;
+                    width: 32px;
+                }
+            }
+        }
+
+        .tabby-note {
+            align-items: center;
+            display: flex;
+            gap: 14px;
+            padding: 18px 20px;
+
+            p {
+                color: #666;
+                font-size: 1.4rem;
+                line-height: 19px;
+            }
+
+            strong {
+                color: #111;
+                display: block;
+                font-weight: 700;
+            }
+
+            &__icon {
+                background: #eef5ff;
+                border-radius: 50%;
+                color: #3b7ddd;
+                flex: 0 0 38px;
+                height: 38px;
+                position: relative;
+
+                &:before {
+                    border: 2px solid #3b7ddd;
+                    border-radius: 50%;
+                    content: '';
+                    height: 8px;
+                    left: 13px;
+                    position: absolute;
+                    top: 8px;
+                    width: 8px;
+                }
+
+                &:after {
+                    border: 2px solid #3b7ddd;
+                    border-radius: 10px 10px 0 0;
+                    content: '';
+                    height: 7px;
+                    left: 10px;
+                    position: absolute;
+                    top: 21px;
+                    width: 14px;
+                }
+
+                &--check {
+                    background: #3b7ddd;
+
+                    &:before {
+                        border-color: #fff;
+                        border-radius: 0;
+                        border-width: 0 2px 2px 0;
+                        height: 12px;
+                        left: 15px;
+                        top: 10px;
+                        transform: rotate(45deg);
+                        width: 6px;
+                    }
+
+                    &:after {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        .tabby-modal__continue {
+            background: #161616;
+            border: 0;
+            border-radius: 20px;
+            color: #fff;
+            cursor: pointer;
+            font-family: @twoxl-font-ui;
+            font-size: 1.5rem;
+            font-weight: 700;
+            height: 64px;
+            margin: 16px 0 14px;
+            width: 100%;
+        }
+
+        .bnpl-modal--tabby .bnpl-pay-icons {
+            gap: 12px;
+        }
+
+        .twoxl-footer {
+            margin-top: 120px;
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .catalog-product-view {
+        .column.main {
+            &:after {
+                clear: both;
+                content: '';
+                display: table;
+            }
+        }
+
+        .product.media {
+            float: left;
+            margin-left: 14px;
+            width: 53.8%;
+
+            .product-gallery__item:nth-of-type(3n + 1) {
+                margin-left: 5px;
+            }
+        }
+
+        .product-info-main {
+            float: right;
+            //  top is refined by js/sticky-buybox
+            position: sticky;
+            top: 190px;
+            width: 41.7%;
+        }
+
+        .product-header {
+            flex-direction: row;
+            gap: 20px;
+            justify-content: space-between;
+
+            &__meta {
+                align-items: flex-end;
+                flex: 0 0 auto;
+                flex-direction: column;
+                gap: 2px;
+                margin-top: -3px;
+                padding-top: 1px;
+                width: auto;
+            }
+        }
+
+        .product-header .page-title {
+            font-size: 3rem;
+        }
+
+        .product-services__item {
+            flex-basis: 100px;
+        }
+
+        //  Blank lays the buy box out as a table on desktop
+        .product-info-main .box-tocart {
+            display: block;
+            margin: 12px 0 0;
+
+            .field.qty {
+                display: block;
+                float: none;
+                margin: 0;
+                padding: 0;
+                width: auto;
+            }
+
+            .actions {
+                display: block;
+                padding-top: 0;
+                text-align: left;
+            }
+        }
+
+        .twoxl-footer {
+            margin-top: 180px;
+        }
+    }
+}

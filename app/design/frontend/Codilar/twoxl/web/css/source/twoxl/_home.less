@@ -1,0 +1,412 @@
+//
+//  Home page: hero banner, category tiles, outdoor promo, product rows, mosaic
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .cms-index-index {
+        .page-main {
+            background: linear-gradient(115deg, #fffaf6 0%, #fff 45%, #fff5ef 100%);
+            padding: 0;
+        }
+
+        .columns {
+            display: block;
+        }
+
+        .column.main {
+            padding-bottom: 0;
+        }
+
+        .twoxl-footer {
+            margin-top: 80px;
+        }
+    }
+
+    .home {
+        overflow: hidden;
+        padding-bottom: 20px;
+    }
+
+    //  Section heading: short rule above a two-tone serif title
+    .home-rule {
+        background: #8c8c8c;
+        display: block;
+        height: 1px;
+        margin-bottom: 22px;
+        width: 168px;
+    }
+
+    .home-title {
+        color: #222;
+        font-family: @twoxl-font-serif;
+        font-size: 3.2rem;
+        font-weight: 400;
+        letter-spacing: .5px;
+        line-height: 1.25;
+        margin: 0;
+
+        em {
+            color: @twoxl-gold;
+            display: block;
+            font-style: normal;
+            font-weight: 500;
+        }
+    }
+
+    //  --- Hero ------------------------------------------------------------------
+    .home-hero {
+        align-items: center;
+        background: #d9c8b4 center / cover no-repeat;
+        display: flex;
+        min-height: 360px;
+        position: relative;
+
+        &:before {
+            background: linear-gradient(90deg, rgba(255, 250, 244, .92) 0%, rgba(255, 250, 244, .6) 45%, rgba(255, 250, 244, 0) 75%);
+            content: '';
+            inset: 0;
+            position: absolute;
+        }
+
+        &__content {
+            padding: 40px 5%;
+            position: relative;
+        }
+
+        &__eyebrow {
+            font-size: 1.4rem;
+            letter-spacing: 3px;
+            margin: 0 0 14px;
+            text-transform: uppercase;
+        }
+
+        &__title {
+            font-family: @twoxl-font-serif;
+            font-size: 3.6rem;
+            font-weight: 400;
+            line-height: 1.2;
+            margin: 0 0 28px;
+
+            em {
+                color: @twoxl-gold;
+                font-style: normal;
+            }
+        }
+
+        &__cta {
+            background: @twoxl-black;
+            color: @twoxl-white;
+            display: inline-block;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            padding: 14px 36px;
+            text-transform: uppercase;
+
+            &:hover {
+                color: @twoxl-white;
+            }
+        }
+    }
+
+    //  --- Discover tiles -----------------------------------------------------------
+    .home-discover {
+        display: grid;
+        gap: 10px;
+        padding: 56px 5% 0;
+
+        &__intro {
+            padding: 0 0 24px;
+        }
+
+        &__tagline {
+            color: #333;
+            font-family: @twoxl-font-serif;
+            font-size: 2rem;
+            font-style: italic;
+            line-height: 1.45;
+            margin: 40px 0 0;
+        }
+
+        &__tile {
+            background: #eadfd2;
+            display: block;
+            overflow: hidden;
+            position: relative;
+
+            img {
+                display: block;
+                height: 100%;
+                object-fit: cover;
+                width: 100%;
+            }
+        }
+
+        &__label {
+            bottom: 18px;
+            color: @twoxl-white;
+            font-family: @twoxl-font-serif;
+            font-size: 4rem;
+            left: 28px;
+            position: absolute;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, .25);
+        }
+
+        &__tile--living {
+            aspect-ratio: 545 / 800;
+        }
+
+        &__tile--dining,
+        &__tile--bedroom,
+        &__tile--decor {
+            aspect-ratio: 4 / 3;
+        }
+    }
+
+    //  --- Outdoor promo --------------------------------------------------------------
+    .home-promo {
+        align-items: center;
+        display: grid;
+        gap: 24px;
+        padding: 70px 5% 20px;
+
+        &__lead {
+            color: #222;
+            font-family: @twoxl-font-serif;
+            font-size: 2.6rem;
+            line-height: 1.45;
+            margin: 26px 0 0;
+        }
+
+        &__link {
+            border-bottom: 1px solid #777;
+            color: #555;
+            display: inline-block;
+            font-family: @twoxl-font-serif;
+            font-size: 2.4rem;
+            font-weight: 500;
+            margin-top: 56px;
+            padding-bottom: 6px;
+        }
+
+        &__image {
+            display: block;
+            height: auto;
+            max-height: 520px;
+            object-fit: cover;
+            //  the studio shot has a light backdrop; multiply lets the page tint show through
+            mix-blend-mode: multiply;
+            width: 100%;
+        }
+    }
+
+    //  --- Product rows -----------------------------------------------------------------
+    .home-products {
+        padding: 80px 5% 0;
+
+        .home-title {
+            margin-bottom: 36px;
+        }
+
+        &__grid {
+            display: grid;
+            gap: 40px 20px;
+            grid-template-columns: 1fr;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+    }
+
+    .home-card {
+        margin: 0;
+
+        &__image {
+            aspect-ratio: 468 / 384;
+            background: #efe9e2;
+            display: block;
+            overflow: hidden;
+
+            img {
+                display: block;
+                height: 100%;
+                object-fit: cover;
+                width: 100%;
+            }
+        }
+
+        &__name {
+            color: @twoxl-black;
+            display: block;
+            font-size: 1.4rem;
+            font-weight: 300;
+            margin: 14px 0 0;
+            text-transform: uppercase;
+        }
+
+        &__prices {
+            align-items: baseline;
+            display: flex;
+            font-family: @twoxl-font-ui;
+            gap: 8px;
+            margin: 22px 0 0;
+        }
+
+        &__old {
+            color: @twoxl-muted;
+            font-size: 1.2rem;
+            text-decoration: line-through;
+        }
+
+        &__price {
+            color: @twoxl-danger;
+            font-size: 1.6rem;
+        }
+
+        &__off {
+            color: @twoxl-danger;
+            font-size: 1.2rem;
+        }
+    }
+
+    //  --- Category mosaic ------------------------------------------------------------
+    .home-mosaic {
+        padding: 90px 5% 0;
+
+        .home-title {
+            font-size: 4.6rem;
+            margin-bottom: 36px;
+        }
+
+        &__row {
+            display: grid;
+            gap: 30px 20px;
+            grid-template-columns: 1fr;
+            margin-bottom: 44px;
+        }
+
+        &__tile {
+            color: @twoxl-black;
+            display: block;
+            grid-column: auto;
+        }
+
+        &__image {
+            aspect-ratio: 478 / 400;
+            background: #efe9e2;
+            display: block;
+            overflow: hidden;
+
+            img {
+                display: block;
+                height: 100%;
+                object-fit: cover;
+                width: 100%;
+            }
+        }
+
+        &__title {
+            border-top: 1px solid #999;
+            display: block;
+            font-family: @twoxl-font-serif;
+            font-size: 2.6rem;
+            margin-top: 28px;
+            padding-top: 14px;
+        }
+
+        &__text {
+            color: #333;
+            display: block;
+            font-family: @twoxl-font-serif;
+            font-size: 1.8rem;
+            margin-top: 12px;
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .home-hero {
+        min-height: 560px;
+
+        &__title {
+            font-size: 5.2rem;
+        }
+    }
+
+    .home-discover {
+        grid-template-columns: 400fr 545fr 323fr 322fr;
+        padding-left: 5.1%;
+        padding-right: 5.1%;
+
+        &__intro {
+            align-self: center;
+            grid-row: 1 / span 2;
+            padding: 0 0 0 0;
+        }
+
+        &__tile--living {
+            grid-column: 2;
+            grid-row: 1 / span 2;
+        }
+
+        &__tile--dining {
+            aspect-ratio: 655 / 389;
+            grid-column: 3 / span 2;
+            grid-row: 1;
+        }
+
+        &__tile--bedroom {
+            aspect-ratio: 323 / 410;
+            grid-column: 3;
+            grid-row: 2;
+        }
+
+        &__tile--decor {
+            aspect-ratio: 323 / 410;
+            grid-column: 4;
+            grid-row: 2;
+        }
+
+        &__tile--living {
+            aspect-ratio: auto;
+        }
+    }
+
+    .home-title {
+        font-size: 4.4rem;
+    }
+
+    .home-promo {
+        grid-template-columns: 38fr 62fr;
+        padding-left: 9%;
+        padding-right: 0;
+    }
+
+    .home-products {
+        padding-left: 9.2%;
+        padding-right: 9.2%;
+
+        &__grid {
+            gap: 50px 30px;
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    .home-mosaic {
+        padding-left: 9%;
+        padding-right: 9%;
+
+        &__row {
+            gap: 30px 20px;
+            grid-template-columns: repeat(var(--cols), 1fr);
+        }
+
+        &__tile {
+            grid-column: span var(--span);
+        }
+
+        &__image {
+            aspect-ratio: auto;
+            height: 407px;
+        }
+    }
+}

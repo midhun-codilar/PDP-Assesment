@@ -1,0 +1,33 @@
+<?php
+/**
+ * Titled 3-column product row.
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Codilar\Twoxl\ViewModel\Home $home
+ * @var \Codilar\Twoxl\ViewModel\PriceFormatter $priceFormatter
+ */
+$home = $block->getData('home');
+$priceFormatter = $block->getData('price_formatter');
+$aed = '<i class="aed-symbol" role="img" aria-label="AED"></i>';
+?>
+<section class="home-products">
+    <span class="home-rule"></span>
+    <h2 class="home-title"><?= $escaper->escapeHtml(__($block->getData('title'))) ?></h2>
+    <ul class="home-products__grid">
+        <?php foreach ($home->getProducts((string)$block->getData('section')) as $product): ?>
+            <li class="home-card">
+                <a class="home-card__image" href="<?= $escaper->escapeUrl($home->getUrl($product['url'])) ?>">
+                    <img src="<?= $escaper->escapeUrl($block->getViewFileUrl('images/home/sample-' . $product['image'] . '.png')) ?>"
+                         alt="<?= $escaper->escapeHtmlAttr($product['name']) ?>" loading="lazy">
+                </a>
+                <a class="home-card__name" href="<?= $escaper->escapeUrl($home->getUrl($product['url'])) ?>"><?= $escaper->escapeHtml($product['name']) ?></a>
+                <p class="home-card__prices">
+                    <span class="home-card__old"><?= /* @noEscape */ $aed ?> <?= $escaper->escapeHtml($priceFormatter->formatNumber($product['regular'])) ?></span>
+                    <span class="home-card__price"><?= /* @noEscape */ $aed ?> <?= $escaper->escapeHtml($priceFormatter->formatNumber($product['price'])) ?></span>
+                    <span class="home-card__off">(<?= (int)$product['discount'] ?>% <?= $escaper->escapeHtml(__('off')) ?>)</span>
+                </p>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</section>

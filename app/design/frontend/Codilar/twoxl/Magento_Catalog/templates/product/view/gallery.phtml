@@ -1,0 +1,27 @@
+<?php
+/**
+ * Product gallery: every image stacked in a grid (first image full width, then pairs).
+ *
+ * @var \Magento\Catalog\Block\Product\View\Gallery $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Codilar\Twoxl\ViewModel\Pdp $pdp
+ */
+$pdp = $block->getData('pdp');
+$product = $block->getProduct();
+$images = $block->getGalleryImages();
+?>
+<div class="product-gallery" data-role="product-gallery">
+    <?php if ($pdp->isNew($product)): ?>
+        <span class="product-label product-label--new"><?= $escaper->escapeHtml(__('New Arrival')) ?></span>
+    <?php endif; ?>
+    <?php $position = 0; ?>
+    <?php foreach ($images as $image): ?>
+        <?php $position++; ?>
+        <figure class="product-gallery__item">
+            <img src="<?= $escaper->escapeUrl($image->getData('large_image_url') ?: $image->getUrl()) ?>"
+                 alt="<?= $escaper->escapeHtmlAttr($image->getLabel() ?: $product->getName()) ?>"
+                 width="1000" height="820"
+                 <?= $position === 1 ? 'fetchpriority="high"' : 'loading="lazy"' ?>>
+        </figure>
+    <?php endforeach; ?>
+</div>

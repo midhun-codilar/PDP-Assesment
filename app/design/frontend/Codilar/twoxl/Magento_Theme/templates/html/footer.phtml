@@ -1,0 +1,118 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+$columns = [
+    'About' => [
+        ['About 2XL Home', 'about-us'],
+        ['Consumer Rights', 'consumer-rights'],
+        ['Partners Privilage Program', 'partners-privilege-program'],
+        ['Bedroom Studio', 'bedroom-studio'],
+        ['Sougha Rewards', 'sougha-rewards'],
+        ['Office Furniture', 'office-furniture'],
+        ['Blog', 'blog'],
+        ['Sitemap', 'sitemap.html'],
+    ],
+    'Customer Service' => [
+        ['Shipping Information', 'shipping-information'],
+        ["FAQ's", 'faq'],
+        ['Easy Payment Options', 'easy-payment-options'],
+        ['Interior Design', 'interior-design'],
+        ['Join Sougha', 'sougha-rewards'],
+        ['B2B Services', 'b2b-services'],
+    ],
+    'Policies' => [
+        ['Terms and Conditions', 'terms-and-condition'],
+        ['Privacy Policy', 'privacy-policy'],
+        ['Return & Refund', 'returns-policy'],
+    ],
+];
+
+$social = [
+    ['Facebook', 'https://www.facebook.com/2XLHome/', 'Facebook.jpg'],
+    ['Instagram', 'https://www.instagram.com/2xl.home/', 'Instagram.jpg'],
+    ['YouTube', 'https://www.youtube.com/user/2XLFurniture', 'Youtube.jpg'],
+    ['Pinterest', 'https://www.pinterest.com/2XLHome/_created/', 'pinterest.jpg'],
+    ['LinkedIn', 'https://www.linkedin.com/company/2xl-furniture-&-home-decor', 'Linkedin.jpg'],
+    ['Snapchat', 'https://www.snapchat.com/add/furniture.2xl', 'snapchat.jpg'],
+    ['TikTok', 'https://www.tiktok.com/@2xlhome', 'tiktok.jpg'],
+];
+
+$popular = [
+    'Sofas', 'Furniture', 'L-Shaped Sofas', 'Modular Sofas', 'Chairs', 'Ottomans,Stool & Pouf', 'TV Units', 'Tables',
+    'Room Dividers', 'Dining Tables', 'Dining Chairs', 'Sideboards', 'Serving Trolleys', 'Bar Furniture', 'Beds',
+    'Dressing Tables', 'Mattresses', 'Outdoor Furniture', 'Dinnerware Sets', 'Bathroom Accessories', 'Carpets',
+    'Floor Mats', 'Home Décor', 'Lamps', 'Wall Décor', 'Mirrors', 'Clocks', 'Kids Furniture', 'Coffee Tables',
+    'Side Tables', 'Tea & Coffee Sets', 'Bed Linen',
+];
+?>
+<div class="twoxl-footer">
+    <div class="twoxl-footer__rule"></div>
+
+    <div class="twoxl-footer__main">
+        <?php foreach ($columns as $title => $links): ?>
+            <div class="twoxl-footer__col">
+                <span class="twoxl-footer__heading"><?= $escaper->escapeHtml(__($title)) ?></span>
+                <ul class="twoxl-footer__links">
+                    <?php foreach ($links as [$label, $path]): ?>
+                        <li><a href="<?= $escaper->escapeUrl($block->getUrl($path)) ?>"><?= $escaper->escapeHtml(__($label)) ?></a></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endforeach; ?>
+
+        <div class="twoxl-footer__col">
+            <span class="twoxl-footer__heading"><?= $escaper->escapeHtml(__('Contact Us')) ?></span>
+            <ul class="twoxl-footer__links">
+                <li><a href="mailto:customersupport@2xlme.com">customersupport@2xlme.com</a></li>
+                <li><a href="tel:800295">800 2XL (295)</a></li>
+                <li><a href="<?= $escaper->escapeUrl($block->getUrl('store-location')) ?>"><?= $escaper->escapeHtml(__('Store Locator')) ?></a></li>
+            </ul>
+        </div>
+
+        <div class="twoxl-footer__col twoxl-footer__col--newsletter">
+            <span class="twoxl-footer__heading"><?= $escaper->escapeHtml(__('Sign up for newsletter')) ?></span>
+            <form class="twoxl-footer__newsletter" action="<?= $escaper->escapeUrl($block->getUrl('newsletter/subscriber/new')) ?>"
+                  method="post" id="twoxl-newsletter-form" data-mage-init='{"validation":{}}'>
+                <?= $block->getChildHtml('twoxl.footer.formkey') ?>
+                <input type="email" name="email" id="twoxl-newsletter" class="twoxl-footer__email"
+                       placeholder="<?= $escaper->escapeHtmlAttr(__('Enter your email')) ?>"
+                       aria-label="<?= $escaper->escapeHtmlAttr(__('Email address')) ?>"
+                       data-validate="{required:true, 'validate-email':true}">
+                <button type="submit" class="twoxl-footer__subscribe"><span><?= $escaper->escapeHtml(__('Subscribe')) ?></span></button>
+            </form>
+        </div>
+    </div>
+
+    <div class="twoxl-footer__social">
+        <?php foreach ($social as [$name, $url, $file]): ?>
+            <a href="<?= $escaper->escapeUrl($url) ?>" target="_blank" rel="noopener" title="<?= $escaper->escapeHtmlAttr($name) ?>">
+                <img width="30" height="30" alt="<?= $escaper->escapeHtmlAttr($name) ?>"
+                     src="<?= $escaper->escapeUrl($block->getViewFileUrl('images/social/' . $file)) ?>">
+            </a>
+        <?php endforeach; ?>
+    </div>
+
+    <div class="twoxl-footer__popular">
+        <h2 class="twoxl-footer__popular-title"><?= $escaper->escapeHtml(__('Popular Searches')) ?></h2>
+        <ul class="twoxl-footer__popular-list">
+            <?php foreach ($popular as $term): ?>
+                <li><a href="<?= $escaper->escapeUrl($block->getUrl('catalogsearch/result', ['_query' => ['q' => $term]])) ?>"><?= $escaper->escapeHtml($term) ?></a></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+
+    <small class="twoxl-footer__copyright"><?= $escaper->escapeHtml(__('Copyrights © 2026 2XL Home, All rights reserved.')) ?></small>
+
+    <a class="twoxl-whatsapp" target="_blank" rel="noopener"
+       href="https://api.whatsapp.com/send?phone=971800295&amp;text=<?= $escaper->escapeUrl('Hi 2XL Home, I need your assistance today!') ?>"
+       title="<?= $escaper->escapeHtmlAttr(__('WhatsApp Us')) ?>">
+        <img width="30" height="30" alt="<?= $escaper->escapeHtmlAttr(__('WhatsApp Us')) ?>"
+             src="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons/whatsapp.svg')) ?>">
+    </a>
+    <button type="button" class="twoxl-back-to-top" hidden data-mage-init='{"js/back-to-top":{}}'
+            aria-label="<?= $escaper->escapeHtmlAttr(__('Back to top')) ?>">
+        <img width="21" height="32" alt="" src="<?= $escaper->escapeUrl($block->getViewFileUrl('images/icons/arrow-up.png')) ?>">
+        <span><?= $escaper->escapeHtml(__('Top')) ?></span>
+    </button>
+</div>
