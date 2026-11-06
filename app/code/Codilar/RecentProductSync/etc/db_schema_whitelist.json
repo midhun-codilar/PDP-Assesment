@@ -1,0 +1,38 @@
+{
+    "codilar_search_product": {
+        "column": {
+            "entity_id": true,
+            "product_id": true,
+            "store_id": true,
+            "sku": true,
+            "name": true,
+            "short_description": true,
+            "price": true,
+            "status": true,
+            "visibility": true,
+            "url_key": true,
+            "image": true,
+            "product_updated_at": true,
+            "synced_at": true,
+            "final_price": true
+        },
+        "index": {
+            "CODILAR_SEARCH_PRODUCT_STORE_ID_PRODUCT_UPDATED_AT": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "CODILAR_SRCH_PRD_PRD_ID_CAT_PRD_ENTT_ENTT_ID": true,
+            "CODILAR_SEARCH_PRODUCT_STORE_ID_STORE_STORE_ID": true,
+            "CODILAR_SEARCH_PRODUCT_PRODUCT_ID_STORE_ID": true
+        }
+    },
+    "codilar_search_sync_state": {
+        "column": {
+            "state_key": true,
+            "state_value": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

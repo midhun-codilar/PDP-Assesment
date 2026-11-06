@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/topology.xsd">
+    <exchange name="codilar.inventory" type="topic" connection="amqp">
+        <binding id="codilarInventorySyncBinding"
+                 topic="codilar.inventory.sync"
+                 destinationType="queue"
+                 destination="codilar_inventory_sync_queue"/>
+    </exchange>
+</config>

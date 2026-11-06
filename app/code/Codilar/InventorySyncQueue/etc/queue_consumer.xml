@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/consumer.xsd">
+    <!--
+        maxMessages makes the consumer exit after 100 messages. That is intentional for a
+        long running PHP process: it is restarted by cron_consumers_runner, and a fresh
+        process cannot leak memory indefinitely.
+    -->
+    <consumer name="codilar.inventory.sync.consumer"
+              queue="codilar_inventory_sync_queue"
+              connection="amqp"
+              maxMessages="100"
+              handler="Codilar\InventorySyncQueue\Model\Consumer\InventorySyncHandler::process"/>
+</config>

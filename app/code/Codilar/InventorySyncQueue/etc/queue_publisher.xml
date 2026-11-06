@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/publisher.xsd">
+    <!-- connection "amqp" = RabbitMQ. The exchange is declared by queue_topology.xml. -->
+    <publisher topic="codilar.inventory.sync">
+        <connection name="amqp" exchange="codilar.inventory"/>
+    </publisher>
+</config>

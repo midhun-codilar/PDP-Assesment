@@ -1,0 +1,12 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "js/guest-wishlist": {
+                "loginUrl": <?= /* @noEscape */ json_encode($block->getUrl('customer/account/login')) ?>
+            }
+        }
+    }
+</script>

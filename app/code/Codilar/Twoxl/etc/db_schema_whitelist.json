@@ -1,0 +1,26 @@
+{
+    "codilar_twoxl_product_enquiry": {
+        "column": {
+            "entity_id": true,
+            "name": true,
+            "email": true,
+            "phone": true,
+            "sku": true,
+            "message": true,
+            "status": true,
+            "store_id": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "CODILAR_TWOXL_PRODUCT_ENQUIRY_STATUS": true,
+            "CODILAR_TWOXL_PRODUCT_ENQUIRY_SKU": true,
+            "CODILAR_TWOXL_PRODUCT_ENQUIRY_EMAIL": true,
+            "CODILAR_TWOXL_PRODUCT_ENQUIRY_CREATED_AT": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "CODILAR_TWOXL_PRODUCT_ENQUIRY_STORE_ID_STORE_STORE_ID": true
+        }
+    }
+}

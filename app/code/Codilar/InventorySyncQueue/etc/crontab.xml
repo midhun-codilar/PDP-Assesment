@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Cron/etc/crontab.xsd">
+    <!--
+        Its own group, so a slow publish run cannot delay the default group's jobs, and so
+        this job can be given its own schedule or disabled independently.
+    -->
+    <group id="codilar_inventory_sync">
+        <job name="codilar_inventory_sync_publish"
+             instance="Codilar\InventorySyncQueue\Cron\PublishInventorySync"
+             method="execute">
+            <schedule>* * * * *</schedule>
+        </job>
+    </group>
+</config>

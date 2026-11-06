@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!-- Global scope: products are not only saved from the admin form. Imports, REST
+         calls and data patches all change the same text and must invalidate it too. -->
+    <event name="catalog_product_save_after">
+        <observer name="codilar_product_info_cache_clean_on_save"
+                  instance="Codilar\ProductInfoCache\Observer\CleanProductInfoCache"/>
+    </event>
+    <event name="catalog_product_delete_after">
+        <observer name="codilar_product_info_cache_clean_on_delete"
+                  instance="Codilar\ProductInfoCache\Observer\CleanProductInfoCache"/>
+    </event>
+</config>

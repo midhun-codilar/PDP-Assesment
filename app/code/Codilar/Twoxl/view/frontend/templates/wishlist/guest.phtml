@@ -1,0 +1,60 @@
+<?php
+/**
+ * Guest wish list: the products saved in the twoxl_guest_wishlist cookie.
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Codilar\Twoxl\ViewModel\GuestWishlistPage $wishlist
+ * @var \Codilar\Twoxl\ViewModel\PriceFormatter $priceFormatter
+ */
+$wishlist = $block->getData('wishlist');
+$priceFormatter = $block->getData('price_formatter');
+$products = $wishlist->getProducts();
+$aed = '<i class="aed-symbol" role="img" aria-label="AED"></i>';
+?>
+<div class="guest-wishlist">
+    <p class="guest-wishlist__note">
+        <?= $escaper->escapeHtml(__('Your wish list is saved in this browser only.')) ?>
+        <a href="<?= $escaper->escapeUrl($block->getUrl('customer/account/login')) ?>"><?= $escaper->escapeHtml(__('Sign in')) ?></a>
+        <?= $escaper->escapeHtml(__('to keep it in your account.')) ?>
+    </p>
+    <?php if (!$products): ?>
+        <div class="message info empty"><span><?= $escaper->escapeHtml(__('You have no items in your wish list.')) ?></span></div>
+        <a class="action primary guest-wishlist__continue" href="<?= $escaper->escapeUrl($block->getBaseUrl()) ?>"><?= $escaper->escapeHtml(__('Continue Shopping')) ?></a>
+    <?php else: ?>
+        <ul class="guest-wishlist__grid">
+            <?php foreach ($products as $product): ?>
+                <?php
+                $url = $product->getProductUrl();
+                $name = (string)$product->getName();
+                $discount = $wishlist->getDiscountPercent($product);
+                ?>
+                <li class="home-card guest-wishlist__item" data-guest-wishlist-item>
+                    <a class="home-card__image" href="<?= $escaper->escapeUrl($url) ?>">
+                        <img src="<?= $escaper->escapeUrl($wishlist->getImageUrl($product)) ?>"
+                             alt="<?= $escaper->escapeHtmlAttr($name) ?>" loading="lazy">
+                    </a>
+                    <a href="#" class="action towishlist is-saved" data-action="add-to-wishlist" aria-pressed="true"
+                       data-post="<?= $escaper->escapeHtmlAttr($wishlist->getHeartPostData($product)) ?>"
+                       title="<?= $escaper->escapeHtmlAttr(__('Remove from wish list')) ?>"><span><?= $escaper->escapeHtml(__('Remove from wish list')) ?></span></a>
+                    <a class="home-card__name" href="<?= $escaper->escapeUrl($url) ?>"><?= $escaper->escapeHtml($name) ?></a>
+                    <p class="home-card__prices">
+                        <?php if ($discount): ?>
+                            <span class="home-card__old"><?= /* @noEscape */ $aed ?> <?= $escaper->escapeHtml($priceFormatter->formatNumber($wishlist->getRegularPrice($product))) ?></span>
+                            <span class="home-card__price"><?= /* @noEscape */ $aed ?> <?= $escaper->escapeHtml($priceFormatter->formatNumber($wishlist->getFinalPrice($product))) ?></span>
+                            <span class="home-card__off">(<?= (int)$discount ?>% <?= $escaper->escapeHtml(__('off')) ?>)</span>
+                        <?php else: ?>
+                            <span class="home-card__price guest-wishlist__price"><?= /* @noEscape */ $aed ?> <?= $escaper->escapeHtml($priceFormatter->formatNumber($wishlist->getFinalPrice($product))) ?></span>
+                        <?php endif; ?>
+                    </p>
+                    <?php if ($wishlist->canAddToCart($product)): ?>
+                        <button type="button" class="action primary tocart"
+                                data-post="<?= $escaper->escapeHtmlAttr($wishlist->getAddToCartPostData($product)) ?>"><?= $escaper->escapeHtml(__('Add to Cart')) ?></button>
+                    <?php else: ?>
+                        <a class="action primary tocart" href="<?= $escaper->escapeUrl($url) ?>"><?= $escaper->escapeHtml(__('Choose Options')) ?></a>
+                    <?php endif; ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+</div>

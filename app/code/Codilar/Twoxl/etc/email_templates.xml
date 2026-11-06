@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="twoxl_enquiry_notification_template" label="New Product Enquiry" file="enquiry_notification.html"
+              type="html" module="Codilar_Twoxl" area="frontend"/>
+</config>

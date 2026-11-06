@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+    Declaring the type here is what makes it a first class cache: it shows up in
+    System > Cache Management with its own checkbox, and `bin/magento cache:clean
+    codilar_product_info` / `cache:disable` work against it without any extra code.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Cache/etc/cache.xsd">
+    <type name="codilar_product_info"
+          translate="label,description"
+          instance="Codilar\ProductInfoCache\Model\Cache\Type\ProductInfo">
+        <label>Codilar Product Info</label>
+        <description>Per store view product name and description.</description>
+    </type>
+</config>

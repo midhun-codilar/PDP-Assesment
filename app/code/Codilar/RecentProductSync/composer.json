@@ -1,0 +1,20 @@
+{
+    "name": "codilar/module-recent-product-sync",
+    "description": "Keeps a flat, store-scoped product table in sync for a custom search integration and renders the most recently updated products on the storefront.",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "require": {
+        "php": "~8.1.0||~8.2.0||~8.3.0||~8.4.0||~8.5.0",
+        "magento/framework": "*",
+        "magento/module-catalog": "*",
+        "magento/module-store": "*"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Codilar\\RecentProductSync\\": ""
+        }
+    }
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!-- Move the products a guest hearted (theme js/guest-wishlist.js) into the account wish list -->
+    <event name="customer_login">
+        <observer name="twoxl_merge_guest_wishlist" instance="Codilar\Twoxl\Observer\MergeGuestWishlist"/>
+    </event>
+    <!-- Fallback for items hearted while logged in but before the customer section had loaded -->
+    <event name="controller_action_predispatch">
+        <observer name="twoxl_merge_guest_wishlist" instance="Codilar\Twoxl\Observer\MergeGuestWishlist"/>
+    </event>
+</config>

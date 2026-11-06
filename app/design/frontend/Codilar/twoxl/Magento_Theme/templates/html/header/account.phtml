@@ -1,6 +1,8 @@
 <?php
 /** @var \Magento\Framework\View\Element\Template $block */
 /** @var \Magento\Framework\Escaper $escaper */
+/** @var \Codilar\Twoxl\ViewModel\RegionSwitcher $regionSwitcher */
+$regionSwitcher = $block->getData('region_switcher');
 ?>
 <div class="header-region">
     <button type="button" class="header-action header-action--region" aria-haspopup="true" aria-label="<?= $escaper->escapeHtmlAttr(__('Country and language')) ?>">
@@ -12,8 +14,17 @@
         <svg class="header-caret" width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>
     </button>
     <ul class="header-region__menu">
-        <li class="is-current"><?= $escaper->escapeHtml(__('United Arab Emirates')) ?> (AED)</li>
-        <li><?= $escaper->escapeHtml(__('Oman')) ?> (OMR)</li>
+        <?php foreach ($regionSwitcher->getRegions() as $region): ?>
+            <li<?= $region['isCurrent'] ? ' class="is-current"' : '' ?>>
+                <?php if ($region['isCurrent']): ?>
+                    <?= $escaper->escapeHtml($region['label']) ?> (<?= $escaper->escapeHtml($region['currency']) ?>)
+                <?php else: ?>
+                    <a href="<?= $escaper->escapeUrl($region['url']) ?>">
+                        <?= $escaper->escapeHtml($region['label']) ?> (<?= $escaper->escapeHtml($region['currency']) ?>)
+                    </a>
+                <?php endif; ?>
+            </li>
+        <?php endforeach; ?>
     </ul>
 </div>
 <div class="header-account" data-mage-init='{"js/account-menu":{}}'>
@@ -30,6 +41,7 @@
         <li class="header-account__greeting" data-role="greeting" hidden></li>
         <li data-role="guest"><a href="<?= $escaper->escapeUrl($block->getUrl('customer/account/login')) ?>"><?= $escaper->escapeHtml(__('Sign In')) ?></a></li>
         <li data-role="guest"><a href="<?= $escaper->escapeUrl($block->getUrl('customer/account/create')) ?>"><?= $escaper->escapeHtml(__('Create an Account')) ?></a></li>
+        <li data-role="guest"><a href="<?= $escaper->escapeUrl($block->getUrl('twoxl/wishlist')) ?>"><?= $escaper->escapeHtml(__('My Wish List')) ?></a></li>
         <li data-role="customer" hidden><a href="<?= $escaper->escapeUrl($block->getUrl('customer/account')) ?>"><?= $escaper->escapeHtml(__('My Account')) ?></a></li>
         <li data-role="customer" hidden><a href="<?= $escaper->escapeUrl($block->getUrl('sales/order/history')) ?>"><?= $escaper->escapeHtml(__('My Orders')) ?></a></li>
         <li data-role="customer" hidden><a href="<?= $escaper->escapeUrl($block->getUrl('wishlist')) ?>"><?= $escaper->escapeHtml(__('My Wish List')) ?></a></li>

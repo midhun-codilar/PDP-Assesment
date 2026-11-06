@@ -1,0 +1,79 @@
+//
+//  "Request a quote" form on the product page
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .enquiry {
+        border-top: 1px solid @twoxl-border;
+        padding: 18px 0 0;
+
+        &__toggle {
+            cursor: pointer;
+            font-size: 1.4rem;
+            letter-spacing: .06em;
+            list-style: none;
+            text-transform: uppercase;
+
+            &::-webkit-details-marker {
+                display: none;
+            }
+
+            &:after {
+                content: '+';
+                float: right;
+                font-size: 1.8rem;
+                line-height: 1;
+            }
+        }
+
+        &[open] &__toggle:after {
+            content: '\2013';
+        }
+
+        &__intro {
+            color: @twoxl-muted;
+            margin: 14px 0 18px;
+        }
+
+        &__row {
+            margin-bottom: 14px;
+        }
+
+        &__label {
+            display: block;
+            font-size: 1.2rem;
+            letter-spacing: .06em;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        &__input {
+            border: 1px solid @twoxl-border;
+            border-radius: 0;
+            height: 44px;
+            padding: 0 12px;
+            width: 100%;
+        }
+
+        &__textarea {
+            height: auto;
+            padding: 12px;
+            resize: vertical;
+        }
+
+        &__submit {
+            background: @twoxl-black;
+            border: 0;
+            color: @twoxl-white;
+            height: 48px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            width: 100%;
+
+            &:hover {
+                background: lighten(@twoxl-black, 15%);
+                color: @twoxl-white;
+            }
+        }
+    }
+}

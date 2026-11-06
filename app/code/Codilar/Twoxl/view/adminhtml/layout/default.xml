@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<!-- Loaded on every admin page because the sidebar is rendered on every admin page. -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Codilar_Twoxl::css/admin-menu.css"/>
+    </head>
+</page>

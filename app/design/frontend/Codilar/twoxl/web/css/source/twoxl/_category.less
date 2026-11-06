@@ -1,0 +1,27 @@
+//
+//  Category hero banner (Content > Category Banner on the category form)
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .category-banner {
+        margin: 0 0 30px;
+        overflow: hidden;
+
+        &__image {
+            display: block;
+            height: 220px;
+            object-fit: cover;
+            width: 100%;
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .category-banner {
+        margin-bottom: 40px;
+
+        &__image {
+            height: 380px;
+        }
+    }
+}

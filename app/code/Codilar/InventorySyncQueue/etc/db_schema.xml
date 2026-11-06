@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <!--
+        One row per product. The unique key on product_id is what makes the claim step an
+        upsert rather than a read-then-write, and it is the reason two cron runs cannot
+        leave two rows fighting over the same product.
+    -->
+    <table name="codilar_inventory_sync_status" resource="default" engine="innodb"
+           comment="Inventory sync queue status per product">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false"
+                identity="true" comment="Row ID"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="false"
+                comment="Product ID"/>
+        <column xsi:type="varchar" name="status" length="16" nullable="false"
+                default="pending" comment="pending|processing|completed|failed"/>
+        <column xsi:type="smallint" name="attempts" unsigned="true" nullable="false"
+                default="0" comment="Processing attempts"/>
+        <column xsi:type="text" name="message" nullable="true"
+                comment="Last result or error message"/>
+        <column xsi:type="timestamp" name="queued_at" nullable="true"
+                comment="When the product was last published to the queue"/>
+        <column xsi:type="timestamp" name="processed_at" nullable="true"
+                comment="When the consumer last finished with it"/>
+        <column xsi:type="timestamp" name="last_synced_at" nullable="true"
+                comment="When inventory was last successfully synced"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="CODILAR_INVENTORY_SYNC_STATUS_PRODUCT_ID">
+            <column name="product_id"/>
+        </constraint>
+        <constraint xsi:type="foreign"
+                    referenceId="CODILAR_INV_SYNC_STATUS_PRD_ID_CAT_PRD_ENTT_ENTT_ID"
+                    table="codilar_inventory_sync_status" column="product_id"
+                    referenceTable="catalog_product_entity" referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+        <index referenceId="CODILAR_INVENTORY_SYNC_STATUS_STATUS" indexType="btree">
+            <column name="status"/>
+        </index>
+    </table>
+</schema>

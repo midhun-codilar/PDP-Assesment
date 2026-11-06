@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Defaults for the region strip and the product enquiry form. These are the UAE wording and accent; the India store view
+ * overrides them at store scope, so the two regions differ without a second set of templates.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <twoxl>
+            <region>
+                <enabled>1</enabled>
+                <headline>Delivering across the UAE</headline>
+                <subline>Free delivery &amp; installation on every order</subline>
+                <accent>#a8731a</accent>
+            </region>
+        </twoxl>
+        <twoxl_enquiry>
+            <general>
+                <enabled>1</enabled>
+                <heading>Request a quote</heading>
+                <intro_text>Buying in volume or need a bespoke size? Send us the details.</intro_text>
+                <success_message>Thanks for your enquiry. Our team will get back to you shortly.</success_message>
+            </general>
+            <form>
+                <require_phone>0</require_phone>
+                <message_max_length>2000</message_max_length>
+            </form>
+            <notification>
+                <enabled>0</enabled>
+                <sender>general</sender>
+                <template>twoxl_enquiry_notification_template</template>
+            </notification>
+        </twoxl_enquiry>
+    </default>
+</config>

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Makes en_IN selectable as a store locale.
+ *
+ * Magento\Framework\Locale\Config ships en_AU, en_CA, en_GB, en_IE, en_NZ and en_US only, and
+ * anything outside that list is rejected when static files are requested - the India store view
+ * asked for /static/.../en_IN/css/styles-m.css and got a 404, so the storefront rendered unstyled.
+ *
+ * ICU does carry en_IN, and it is the locale that groups in lakhs the way India writes prices
+ * (Rs 2,55,999.00 rather than Rs 255,999.00), so it is added rather than falling back to en_GB.
+ * The constructor merges this into the built-in list, so nothing is lost.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Locale\Config">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="allowedLocales" xsi:type="array">
+                    <item name="en_IN" xsi:type="string">en_IN</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- Admin listing data source: maps the grid name to a SearchResult over the enquiry table. -->
+    <virtualType name="Codilar\Twoxl\Model\ResourceModel\ProductEnquiry\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">codilar_twoxl_product_enquiry</argument>
+            <argument name="resourceModel" xsi:type="string">Codilar\Twoxl\Model\ResourceModel\ProductEnquiry</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="codilar_twoxl_enquiry_listing_data_source" xsi:type="string">Codilar\Twoxl\Model\ResourceModel\ProductEnquiry\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- Exports "Received" in the admin's timezone, the way the grid shows it, not raw UTC. -->
+    <type name="Magento\Ui\Model\Export\MetadataProvider">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="codilar_twoxl_enquiry_listing" xsi:type="array">
+                    <item name="created_at" xsi:type="string">created_at</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

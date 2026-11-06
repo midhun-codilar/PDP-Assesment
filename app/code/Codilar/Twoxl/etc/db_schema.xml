@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Enquiries raised from a product page ("request a quote" / B2B Services in the top bar).
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="codilar_twoxl_product_enquiry" resource="default" engine="innodb"
+           comment="2XL product enquiries raised from the storefront">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+                comment="Enquiry ID"/>
+        <column xsi:type="varchar" name="name" length="120" nullable="false" comment="Customer name"/>
+        <column xsi:type="varchar" name="email" length="180" nullable="false" comment="Customer email"/>
+        <column xsi:type="varchar" name="phone" length="40" nullable="true" comment="Customer phone"/>
+        <column xsi:type="varchar" name="sku" length="64" nullable="true"
+                comment="SKU the enquiry is about; null for a general enquiry"/>
+        <column xsi:type="text" name="message" nullable="true" comment="Enquiry message"/>
+        <column xsi:type="smallint" name="status" unsigned="true" nullable="false" identity="false"
+                default="1" comment="1 new, 2 in progress, 3 closed"/>
+        <!-- Nullable so an enquiry outlives the store view it came from. -->
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="true" identity="false"
+                comment="Store view the enquiry was raised in"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false"
+                default="CURRENT_TIMESTAMP" comment="Created at"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false"
+                default="CURRENT_TIMESTAMP" comment="Updated at"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="CODILAR_TWOXL_PRODUCT_ENQUIRY_STORE_ID_STORE_STORE_ID"
+                    table="codilar_twoxl_product_enquiry" column="store_id" referenceTable="store"
+                    referenceColumn="store_id" onDelete="SET NULL"/>
+
+        <index referenceId="CODILAR_TWOXL_PRODUCT_ENQUIRY_STATUS" indexType="btree">
+            <column name="status"/>
+        </index>
+        <index referenceId="CODILAR_TWOXL_PRODUCT_ENQUIRY_SKU" indexType="btree">
+            <column name="sku"/>
+        </index>
+        <index referenceId="CODILAR_TWOXL_PRODUCT_ENQUIRY_EMAIL" indexType="btree">
+            <column name="email"/>
+        </index>
+        <index referenceId="CODILAR_TWOXL_PRODUCT_ENQUIRY_CREATED_AT" indexType="btree">
+            <column name="created_at"/>
+        </index>
+    </table>
+</schema>

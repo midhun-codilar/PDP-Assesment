@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Product Enquiries lives in its own sidebar section rather than under Catalog, so the
+ * enquiry grid, the new-enquiry form and the module configuration all sit together.
+ *
+ * Levels map onto the admin menu the way Magento renders them:
+ *   level 0 -> the sidebar icon, level 1 -> the group heading in the flyout, level 2 -> the links.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Codilar_Twoxl::enquiries" title="Enquiries" translate="title" module="Codilar_Twoxl"
+             sortOrder="71" resource="Codilar_Twoxl::enquiries"/>
+
+        <add id="Codilar_Twoxl::enquiries_manage" title="Manage" translate="title" module="Codilar_Twoxl"
+             sortOrder="10" parent="Codilar_Twoxl::enquiries" resource="Codilar_Twoxl::enquiry"/>
+
+        <add id="Codilar_Twoxl::enquiry" title="Product Enquiries" translate="title" module="Codilar_Twoxl"
+             sortOrder="10" parent="Codilar_Twoxl::enquiries_manage" action="twoxl_admin/enquiry/index"
+             resource="Codilar_Twoxl::enquiry"/>
+
+        <add id="Codilar_Twoxl::enquiry_new" title="New Enquiry" translate="title" module="Codilar_Twoxl"
+             sortOrder="20" parent="Codilar_Twoxl::enquiries_manage" action="twoxl_admin/enquiry/edit"
+             resource="Codilar_Twoxl::enquiry"/>
+
+        <add id="Codilar_Twoxl::enquiries_settings" title="Settings" translate="title" module="Codilar_Twoxl"
+             sortOrder="20" parent="Codilar_Twoxl::enquiries" resource="Codilar_Twoxl::config"/>
+
+        <add id="Codilar_Twoxl::enquiries_config" title="Configuration" translate="title" module="Codilar_Twoxl"
+             sortOrder="10" parent="Codilar_Twoxl::enquiries_settings"
+             action="adminhtml/system_config/edit/section/twoxl" resource="Codilar_Twoxl::config"/>
+    </menu>
+</config>

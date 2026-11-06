@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!--
+        Everything this module logs goes to var/log/codilar_inventory_sync.log rather than
+        system.log, so a five minute job plus a long running consumer cannot drown the
+        shared log, and so one file tells the whole story of a product's journey.
+    -->
+    <virtualType name="Codilar\InventorySyncQueue\Logger\Handler"
+                 type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/codilar_inventory_sync.log</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Codilar\InventorySyncQueue\Logger\Monolog"
+                 type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="name" xsi:type="string">codilarInventorySync</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Codilar\InventorySyncQueue\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!--
+        StepLogger is the only thing that writes to that file. Every class in the pipeline
+        takes StepLogger instead of a raw LoggerInterface, which is what keeps the log a
+        single numbered trail (STEP 1 .. STEP 9) rather than a pile of unrelated lines.
+    -->
+    <type name="Codilar\InventorySyncQueue\Logger\StepLogger">
+        <arguments>
+            <argument name="logger" xsi:type="object">Codilar\InventorySyncQueue\Logger\Monolog</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="codilarInventorySyncPublish" xsi:type="object">Codilar\InventorySyncQueue\Console\Command\PublishCommand</item>
+                <item name="codilarInventorySyncStatus" xsi:type="object">Codilar\InventorySyncQueue\Console\Command\StatusCommand</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

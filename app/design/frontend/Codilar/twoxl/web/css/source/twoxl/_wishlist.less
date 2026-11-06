@@ -1,0 +1,84 @@
+//
+//  Guest wish list page (twoxl/wishlist); the cards reuse the home page .home-card styles
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .guest-wishlist {
+        padding-bottom: 60px;
+
+        &__note {
+            color: @twoxl-muted;
+            margin: 0 0 30px;
+
+            a {
+                text-decoration: underline;
+            }
+        }
+
+        &__grid {
+            display: grid;
+            gap: 40px 20px;
+            grid-template-columns: 1fr;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        &__item {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        &__price {
+            color: @twoxl-black;
+        }
+
+        //  Filled heart on the image; a click removes the product
+        .action.towishlist {
+            background: @twoxl-white url('../images/icons/heart-filled.svg') center / 20px no-repeat;
+            border-radius: 50%;
+            height: 40px;
+            overflow: hidden;
+            position: absolute;
+            right: 12px;
+            text-indent: -9999px;
+            top: 12px;
+            width: 40px;
+
+            &:before {
+                display: none;
+            }
+
+            &:not(.is-saved) {
+                background-image: url('../images/icons/heart.svg');
+            }
+        }
+
+        //  Same look as the product page button
+        .action.tocart {
+            box-sizing: border-box;
+            font-family: @twoxl-font;
+            font-size: 1.6rem;
+            font-weight: 400;
+            height: 50px;
+            line-height: 48px;
+            margin-top: auto;
+            padding: 0;
+            text-align: center;
+            text-transform: uppercase;
+            width: 100%;
+        }
+
+        .home-card__prices {
+            margin-bottom: 18px;
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .guest-wishlist__grid {
+        gap: 50px 30px;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

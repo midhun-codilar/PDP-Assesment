@@ -1,0 +1,163 @@
+<?php
+/**
+ * Recently updated products, served from codilar_search_product.
+ *
+ * @var \Codilar\RecentProductSync\Block\RecentProducts $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+
+if (!$block->hasItems()) {
+    return;
+}
+?>
+<section class="recent-product-sync">
+    <h2 class="recent-product-sync__heading"><?= $escaper->escapeHtml($block->getHeading()) ?></h2>
+
+    <ul class="recent-product-sync__grid">
+        <?php foreach ($block->getItems() as $item): ?>
+            <?php
+            $name = (string)$item->getData('name');
+            $url = $block->getProductUrl($item);
+            $finalPrice = $block->getFormattedFinalPrice($item);
+            $regularPrice = $block->getFormattedRegularPrice($item);
+            $hasDiscount = $block->hasDiscount($item);
+            $discount = $block->getDiscountPercent($item);
+            $saving = $block->getFormattedSaving($item);
+            $updatedAt = $block->getFormattedUpdatedAt($item);
+            ?>
+            <li class="recent-product-sync__item">
+                <a class="recent-product-sync__link"
+                   href="<?= $escaper->escapeUrl($url) ?>"
+                   title="<?= $escaper->escapeHtmlAttr($name) ?>">
+                    <span class="recent-product-sync__image-wrap">
+                        <img class="recent-product-sync__image"
+                             src="<?= $escaper->escapeUrl($block->getImageUrl($item)) ?>"
+                             alt="<?= $escaper->escapeHtmlAttr($name) ?>"
+                             loading="lazy"
+                             width="240" height="240"/>
+                    </span>
+                    <span class="recent-product-sync__name"><?= $escaper->escapeHtml($name) ?></span>
+                </a>
+
+                <?php if ($finalPrice !== ''): ?>
+                    <span class="recent-product-sync__prices">
+                        <span class="recent-product-sync__price"><?= $escaper->escapeHtml($finalPrice) ?></span>
+
+                        <?php if ($hasDiscount && $regularPrice !== ''): ?>
+                            <s class="recent-product-sync__old-price">
+                                <?= $escaper->escapeHtml($regularPrice) ?>
+                            </s>
+                            <span class="recent-product-sync__badge">
+                                <?= $escaper->escapeHtml(__('-%1% OFF', $discount)) ?>
+                            </span>
+                        <?php endif; ?>
+                    </span>
+
+                    <?php if ($hasDiscount && $saving !== ''): ?>
+                        <span class="recent-product-sync__saving">
+                            <?= $escaper->escapeHtml(__('You save %1', $saving)) ?>
+                        </span>
+                    <?php endif; ?>
+                <?php endif; ?>
+
+                <?php if ($updatedAt !== ''): ?>
+                    <span class="recent-product-sync__updated">
+                        <?= $escaper->escapeHtml(__('Updated %1', $updatedAt)) ?>
+                    </span>
+                <?php endif; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</section>
+
+<style>
+    /* Scoped to this block and written with logical properties so the Arabic (RTL)
+       store view mirrors without a second stylesheet. */
+    .recent-product-sync {
+        margin-block: 2.5rem;
+    }
+
+    .recent-product-sync__heading {
+        margin-block-end: 1.25rem;
+        text-align: start;
+    }
+
+    .recent-product-sync__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 1.5rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .recent-product-sync__item {
+        display: flex;
+        flex-direction: column;
+        gap: .35rem;
+        text-align: start;
+    }
+
+    .recent-product-sync__link {
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+        text-decoration: none;
+    }
+
+    .recent-product-sync__image-wrap {
+        display: block;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        background: #f5f5f5;
+    }
+
+    .recent-product-sync__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .recent-product-sync__name {
+        font-weight: 600;
+        line-height: 1.3;
+    }
+
+    .recent-product-sync__prices {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: .4rem;
+    }
+
+    .recent-product-sync__price {
+        font-weight: 700;
+    }
+
+    .recent-product-sync__old-price {
+        opacity: .55;
+        font-size: .9em;
+    }
+
+    .recent-product-sync__badge {
+        font-size: .78em;
+        font-weight: 700;
+        line-height: 1;
+        padding: .25em .5em;
+        border-radius: .25em;
+        background: #d1403f;
+        color: #fff;
+        white-space: nowrap;
+    }
+
+    .recent-product-sync__saving {
+        font-size: .8em;
+        font-weight: 600;
+        color: #1a7f45;
+    }
+
+    .recent-product-sync__updated {
+        font-size: .8em;
+        opacity: .65;
+    }
+</style>

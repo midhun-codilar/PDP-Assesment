@@ -51,6 +51,13 @@
                    template="Magento_Catalog::product/view/accordion.phtml" after="product.info.warehouse"/>
             <block class="Magento\Framework\View\Element\Template" name="product.info.services"
                    template="Magento_Catalog::product/view/services.phtml" after="product.info.accordion"/>
+            <block class="Magento\Catalog\Block\Product\View" name="product.info.enquiry"
+                   template="Magento_Catalog::product/view/enquiry.phtml" after="product.info.services">
+                <arguments>
+                    <argument name="enquiry_form" xsi:type="object">Codilar\Twoxl\ViewModel\EnquiryForm</argument>
+                </arguments>
+                <block class="Magento\Framework\View\Element\FormKey" name="product.info.enquiry.formkey" as="formkey"/>
+            </block>
         </referenceContainer>
 
         <!-- Review summary and wishlist heart are rendered inside the header block -->

@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <!-- Main table: one row per product per store view -->
+    <table name="codilar_search_product" resource="default" engine="innodb"
+           comment="Product data for custom search">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false"
+                identity="true" comment="Row ID"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="false"
+                comment="Product ID"/>
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="false"
+                comment="Store ID"/>
+        <column xsi:type="varchar" name="sku" length="64" nullable="false" comment="SKU"/>
+        <column xsi:type="varchar" name="name" length="255" nullable="true" comment="Name"/>
+        <column xsi:type="text" name="short_description" nullable="true"
+                comment="Short Description"/>
+        <column xsi:type="decimal" name="price" scale="6" precision="20" nullable="true"
+                comment="Regular Price"/>
+        <column xsi:type="decimal" name="final_price" scale="6" precision="20" nullable="true"
+                comment="Final Price after special price / catalogue rules"/>
+        <column xsi:type="smallint" name="status" unsigned="true" nullable="false"
+                default="1" comment="Product Status"/>
+        <column xsi:type="smallint" name="visibility" unsigned="true" nullable="false"
+                default="4" comment="Visibility"/>
+        <column xsi:type="varchar" name="url_key" length="255" nullable="true"
+                comment="URL Key"/>
+        <column xsi:type="varchar" name="image" length="255" nullable="true"
+                comment="Image Path"/>
+        <column xsi:type="timestamp" name="product_updated_at" nullable="true"
+                comment="Product updated_at"/>
+        <column xsi:type="timestamp" name="synced_at" nullable="false"
+                default="CURRENT_TIMESTAMP" on_update="true" comment="Last written"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign"
+                    referenceId="CODILAR_SEARCH_PRODUCT_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID"
+                    table="codilar_search_product" column="product_id"
+                    referenceTable="catalog_product_entity" referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="foreign"
+                    referenceId="CODILAR_SEARCH_PRODUCT_STORE_ID_STORE_STORE_ID"
+                    table="codilar_search_product" column="store_id"
+                    referenceTable="store" referenceColumn="store_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="unique" referenceId="CODILAR_SEARCH_PRODUCT_PRODUCT_ID_STORE_ID">
+            <column name="product_id"/>
+            <column name="store_id"/>
+        </constraint>
+        <index referenceId="CODILAR_SEARCH_PRODUCT_STORE_ID_PRODUCT_UPDATED_AT" indexType="btree">
+            <column name="store_id"/>
+            <column name="product_updated_at"/>
+        </index>
+    </table>
+
+    <!-- Tiny key/value table to hold the last-synchronized timestamp -->
+    <table name="codilar_search_sync_state" resource="default" engine="innodb"
+           comment="Sync state">
+        <column xsi:type="varchar" name="state_key" length="64" nullable="false"
+                comment="Key"/>
+        <column xsi:type="varchar" name="state_value" length="255" nullable="true"
+                comment="Value"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="state_key"/>
+        </constraint>
+    </table>
+</schema>

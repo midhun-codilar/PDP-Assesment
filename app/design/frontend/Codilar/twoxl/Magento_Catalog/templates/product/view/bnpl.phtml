@@ -22,6 +22,8 @@ $floorCents = static fn (float $amount): float => floor(round($amount * 100, 4))
 $tamaraPlans = [[2, 1], [3, 1], [4, 1], [6, 1], [9, 1.17], [12, 1.17]];
 $tabbyPlans = [[4, 1], [6, 1.05], [8, 1.09], [12, 1.17]];
 ?>
+<?php /* Tabby and Tamara are GCC only, so the cards are dropped outside the dirham storefront. */ ?>
+<?php if ($priceFormatter->isAed()): ?>
 <div class="bnpl" data-mage-init='{"js/bnpl-modal":{}}'>
     <div class="bnpl-card bnpl-card--tabby" data-bnpl-open="tabby" role="button" tabindex="0">
         <p class="bnpl-card__text">
@@ -156,6 +158,8 @@ $tabbyPlans = [[4, 1], [6, 1.05], [8, 1.09], [12, 1.17]];
         </div>
     </div>
 </div>
+<?php endif; ?>
+
 <script type="text/x-magento-init">
     {".product-info-main": {"js/sticky-buybox": {}}}
 </script>

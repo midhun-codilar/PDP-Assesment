@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Cron/etc/crontab.xsd">
+    <group id="default">
+        <job name="codilar_recent_product_sync"
+             instance="Codilar\RecentProductSync\Cron\SyncProducts"
+             method="execute">
+            <schedule>*/15 * * * *</schedule>
+        </job>
+        <!-- One minute is the tightest Magento's scheduler goes; the block filters on the
+             same TTL so the storefront stays exact between sweeps. -->
+        <job name="codilar_recent_product_sync_purge"
+             instance="Codilar\RecentProductSync\Cron\PurgeExpiredRows"
+             method="execute">
+            <schedule>* * * * *</schedule>
+        </job>
+    </group>
+</config>

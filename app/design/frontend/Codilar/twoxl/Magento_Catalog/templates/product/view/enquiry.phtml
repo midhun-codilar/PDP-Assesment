@@ -1,0 +1,62 @@
+<?php
+/**
+ * "Request a quote" form on the product page; posts to twoxl/enquiry/save.
+ *
+ * Wording, the phone rule and the message limit come from Stores > Configuration > Enquiries,
+ * read per store view, so the two storefronts can differ without a second template.
+ *
+ * @var \Magento\Catalog\Block\Product\View $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$product = $block->getProduct();
+
+/** @var \Codilar\Twoxl\ViewModel\EnquiryForm $enquiryForm */
+$enquiryForm = $block->getData('enquiry_form');
+
+if (!$enquiryForm->isEnabled()) {
+    return '';
+}
+
+$intro = $enquiryForm->getIntroText();
+$phoneRequired = $enquiryForm->isPhoneRequired();
+$messageMaxLength = $enquiryForm->getMessageMaxLength();
+?>
+<details class="enquiry">
+    <summary class="enquiry__toggle"><?= $escaper->escapeHtml($enquiryForm->getHeading()) ?></summary>
+    <form class="enquiry__form"
+          action="<?= $escaper->escapeUrl($block->getUrl('twoxl/enquiry/save')) ?>"
+          method="post"
+          data-mage-init='{"validation":{}}'>
+        <?= $block->getBlockHtml('formkey') ?>
+        <input type="hidden" name="sku" value="<?= $escaper->escapeHtmlAttr($product->getSku()) ?>">
+
+        <?php if ($intro !== ''): ?>
+            <p class="enquiry__intro"><?= $escaper->escapeHtml($intro) ?></p>
+        <?php endif; ?>
+
+        <div class="enquiry__row">
+            <label class="enquiry__label" for="enquiry-name"><?= $escaper->escapeHtml(__('Name')) ?></label>
+            <input class="enquiry__input input-text required-entry" type="text" id="enquiry-name"
+                   name="name" maxlength="120" required>
+        </div>
+        <div class="enquiry__row">
+            <label class="enquiry__label" for="enquiry-email"><?= $escaper->escapeHtml(__('Email')) ?></label>
+            <input class="enquiry__input input-text required-entry validate-email" type="email" id="enquiry-email"
+                   name="email" maxlength="180" required>
+        </div>
+        <div class="enquiry__row">
+            <label class="enquiry__label" for="enquiry-phone"><?= $escaper->escapeHtml(__('Phone')) ?></label>
+            <input class="enquiry__input input-text<?= $phoneRequired ? ' required-entry' : '' ?>"
+                   type="tel" id="enquiry-phone" name="phone" maxlength="40"<?= $phoneRequired ? ' required' : '' ?>>
+        </div>
+        <div class="enquiry__row">
+            <label class="enquiry__label" for="enquiry-message"><?= $escaper->escapeHtml(__('Message')) ?></label>
+            <textarea class="enquiry__input enquiry__textarea" id="enquiry-message" name="message"
+                      rows="4" maxlength="<?= (int)$messageMaxLength ?>"></textarea>
+        </div>
+
+        <button type="submit" class="action primary enquiry__submit">
+            <span><?= $escaper->escapeHtml(__('Send enquiry')) ?></span>
+        </button>
+    </form>
+</details>

@@ -1,0 +1,10 @@
+/*
+ * Sidebar icon for the standalone Enquiries section.
+ *
+ * Magento builds the <li> class from the part of the menu id after "::", so
+ * Codilar_Twoxl::enquiries renders as .item-enquiries. Only the glyph is set here;
+ * the Admin Icons font and sizing already come from the core menu styles.
+ */
+.admin__menu .level-0.item-enquiries > a:before {
+    content: '\e633';
+}

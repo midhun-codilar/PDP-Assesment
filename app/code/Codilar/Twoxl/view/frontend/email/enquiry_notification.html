@@ -1,0 +1,31 @@
+<!--@subject {{trans "New product enquiry from %name" name=$enquiry_name}} @-->
+<!--@vars {
+"var enquiry_name":"Customer Name",
+"var enquiry_email":"Customer Email",
+"var enquiry_phone":"Customer Phone",
+"var enquiry_sku":"Product SKU",
+"var enquiry_message":"Message",
+"var enquiry_store":"Store View",
+"var enquiry_admin_url":"Link to the enquiry in the admin"
+} @-->
+{{template config_path="design/email/header_template"}}
+
+<table class="message-details">
+    <tr>
+        <td>
+            <h1>{{trans "New product enquiry"}}</h1>
+            <p>
+                <strong>{{trans "Name"}}:</strong> {{var enquiry_name}}<br>
+                <strong>{{trans "Email"}}:</strong> {{var enquiry_email}}<br>
+                <strong>{{trans "Phone"}}:</strong> {{var enquiry_phone}}<br>
+                <strong>{{trans "SKU"}}:</strong> {{var enquiry_sku}}<br>
+                <strong>{{trans "Store View"}}:</strong> {{var enquiry_store}}
+            </p>
+            <p><strong>{{trans "Message"}}</strong></p>
+            <p>{{var enquiry_message}}</p>
+            <p><a href="{{var enquiry_admin_url}}">{{trans "Open this enquiry in the admin"}}</a></p>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

@@ -13,6 +13,16 @@
                    template="Magento_Theme::html/header/topbar.phtml" after="header.panel"/>
         </referenceContainer>
 
+        <!-- Regional strip: wording and accent colour come from store scoped config -->
+        <referenceContainer name="header.panel.wrapper">
+            <block class="Magento\Framework\View\Element\Template" name="twoxl.region.strip"
+                   template="Magento_Theme::html/header/region-strip.phtml" after="twoxl.topbar">
+                <arguments>
+                    <argument name="region_banner" xsi:type="object">Codilar\Twoxl\ViewModel\RegionBanner</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
         <!-- Logo | search | actions row -->
         <referenceBlock name="advanced-search-link" remove="true"/>
         <referenceBlock name="logo">
@@ -24,12 +34,22 @@
         <referenceContainer name="header-wrapper">
             <container name="twoxl.header.actions" htmlTag="div" htmlClass="header-actions" after="-">
                 <block class="Magento\Framework\View\Element\Template" name="twoxl.header.account"
-                       template="Magento_Theme::html/header/account.phtml" before="-"/>
+                       template="Magento_Theme::html/header/account.phtml" before="-">
+                    <arguments>
+                        <argument name="region_switcher" xsi:type="object">Codilar\Twoxl\ViewModel\RegionSwitcher</argument>
+                    </arguments>
+                </block>
                 <block class="Magento\Framework\View\Element\Template" name="twoxl.header.location"
                        template="Magento_Theme::html/header/location.phtml" after="-"/>
             </container>
         </referenceContainer>
         <move element="minicart" destination="twoxl.header.actions" after="twoxl.header.account"/>
+
+        <!-- Guest wish list (merged into the account on login by Codilar_Twoxl) -->
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Framework\View\Element\Template" name="twoxl.guest.wishlist"
+                   template="Magento_Theme::html/guest-wishlist.phtml"/>
+        </referenceContainer>
 
         <!-- Footer -->
         <referenceContainer name="footer" remove="true"/>

@@ -1,0 +1,83 @@
+//
+//  Regional strip + the accent colour that varies per storefront.
+//  --twoxl-accent is written inline by html/header/region-strip.phtml from store scoped config;
+//  the fallback keeps every rule valid when the strip is switched off.
+//  _____________________________________________
+
+@twoxl-accent-fallback: @twoxl-gold;
+
+.twoxl-region {
+    background: var(--twoxl-accent, @twoxl-accent-fallback);
+    color: @twoxl-white;
+
+    &__inner {
+        align-items: baseline;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 14px;
+        margin: 0 auto;
+        max-width: 1600px;
+        padding: 9px @twoxl-page-gutter;
+    }
+
+    &__headline {
+        font-family: @twoxl-font;
+        font-size: 1.4rem;
+        font-weight: 600;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+    }
+
+    &__subline {
+        font-family: @twoxl-font-ui;
+        font-size: 1.25rem;
+        opacity: .85;
+    }
+
+    &__currency {
+        background: fade(#fff, 18%);
+        border-radius: 2px;
+        font-family: @twoxl-font-ui;
+        font-size: 1.1rem;
+        font-weight: 600;
+        letter-spacing: .08em;
+        margin-left: auto;
+        padding: 2px 9px;
+    }
+}
+
+//  Accents elsewhere on the page, so the difference is not only the strip itself.
+//  These selectors repeat rules from _header.less and _product-view.less; this partial is
+//  imported last, so at equal specificity they win.
+.twoxl-topbar {
+    border-bottom: 3px solid var(--twoxl-accent, @twoxl-accent-fallback);
+}
+
+.catalog-product-view .product-info-main .box-tocart .action.primary.tocart {
+    background: var(--twoxl-accent, @twoxl-accent-fallback);
+    border-color: var(--twoxl-accent, @twoxl-accent-fallback);
+
+    &:hover,
+    &:focus {
+        background: darken(@twoxl-gold, 8%);
+        background: color-mix(in srgb, var(--twoxl-accent, @twoxl-accent-fallback) 85%, #000);
+        border-color: transparent;
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .twoxl-region {
+        &__inner {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        &__headline {
+            font-size: 1.25rem;
+        }
+
+        &__subline {
+            display: none;
+        }
+    }
+}

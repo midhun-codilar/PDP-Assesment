@@ -1,0 +1,22 @@
+{
+    "codilar_inventory_sync_status": {
+        "column": {
+            "entity_id": true,
+            "product_id": true,
+            "status": true,
+            "attempts": true,
+            "message": true,
+            "queued_at": true,
+            "processed_at": true,
+            "last_synced_at": true
+        },
+        "index": {
+            "CODILAR_INVENTORY_SYNC_STATUS_STATUS": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "CODILAR_INVENTORY_SYNC_STATUS_PRODUCT_ID": true,
+            "CODILAR_INV_SYNC_STS_PRD_ID_CAT_PRD_ENTT_ENTT_ID": true
+        }
+    }
+}

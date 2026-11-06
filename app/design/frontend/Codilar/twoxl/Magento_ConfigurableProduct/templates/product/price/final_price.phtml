@@ -1,0 +1,72 @@
+<?php
+/**
+ * Configurable final price: same markup Magento ships (the swatch renderer depends on
+ * .normal-price and .sly-old-price) plus the 2XL discount badge, which js/discount-badge
+ * recomputes whenever a colour is picked and the price box re-renders.
+ *
+ * @var \Magento\ConfigurableProduct\Pricing\Render\FinalPriceBox $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$priceModel = $block->getPriceType('regular_price');
+$finalPriceModel = $block->getPriceType('final_price');
+$regularPriceModel = $block->getPriceType('regular_price');
+$idSuffix = $block->getIdSuffix() ?: '';
+$schema = $block->getZone() === 'item_view';
+$product = $regularPriceModel->getProduct();
+
+$regular = (float)$priceModel->getAmount()->getValue();
+$final = (float)$finalPriceModel->getAmount()->getValue();
+$discount = $regular > 0 && $final < $regular ? (int)round((1 - $final / $regular) * 100) : 0;
+?>
+<span class="normal-price">
+    <?= /* @noEscape */ $block->renderAmount($finalPriceModel->getAmount(), [
+        'display_label' => $regularPriceModel->isChildProductsOfEqualPrices($product) ? '' : __('As low as'),
+        'price_id' => $block->getPriceId('product-price-' . $idSuffix),
+        'price_type' => 'finalPrice',
+        'include_container' => true,
+        'schema' => $schema,
+    ]); ?>
+    <?php if ($schema): ?>
+        <span class="discount-badge<?= $discount > 0 ? '' : ' no-display' ?>" data-discount-badge>
+            <?= $discount > 0
+                ? '(-' . (int)$discount . '% ' . $escaper->escapeHtml(__('OFF')) . ')'
+                : '' ?>
+        </span>
+    <?php endif; ?>
+</span>
+
+<?php if ($block->hasSpecialPrice()): ?>
+    <span class="old-price sly-old-price no-display">
+        <?= /* @noEscape */ $block->renderAmount($priceModel->getAmount(), [
+            'display_label'     => __('Regular Price'),
+            'price_id'          => $block->getPriceId('old-price-' . $idSuffix),
+            'price_type'        => 'oldPrice',
+            'include_container' => true,
+            'skip_adjustments'  => false
+        ]); ?>
+    </span>
+<?php endif; ?>
+
+<?php if ($block->showMinimalPrice()): ?>
+    <?php if ($block->getUseLinkForAsLowAs()): ?>
+        <a href="<?= $escaper->escapeUrl($block->getSaleableItem()->getProductUrl()) ?>" class="minimal-price-link">
+            <?= /* @noEscape */ $block->renderAmountMinimal() ?>
+        </a>
+    <?php else: ?>
+        <span class="minimal-price-link">
+            <?= /* @noEscape */ $block->renderAmountMinimal() ?>
+        </span>
+    <?php endif ?>
+<?php endif; ?>
+
+<?php if ($schema): ?>
+    <script type="text/x-magento-init">
+    {
+        "[data-price-box=product-id-<?= (int)$block->getSaleableItem()->getId() ?>]": {
+            "js/discount-badge": {
+                "offLabel": <?= /* @noEscape */ json_encode(__('OFF')->render()) ?>
+            }
+        }
+    }
+    </script>
+<?php endif; ?>

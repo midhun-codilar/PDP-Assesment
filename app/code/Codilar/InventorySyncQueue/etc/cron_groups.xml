@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+    Settings for the cron group declared in crontab.xml.
+
+    Declaring <group id="codilar_inventory_sync"> in crontab.xml registers the group but
+    gives it no settings, and Magento reads those from system/cron/<group>/* - which this
+    file is what populates. Without it schedule_ahead_for resolves to NULL, which
+    ProcessCronQueueObserver casts to 0:
+
+        $timeAhead = $currentTime + 0;
+        for ($time = $currentTime; $time < $timeAhead; ...)   // body never runs
+
+    so no rows are ever written to cron_schedule and the job never fires - silently, with
+    no error anywhere. Every core group ships one of these; see
+    Magento_Indexer/etc/cron_groups.xml for the 'index' group.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/cron_groups.xsd">
+    <group id="codilar_inventory_sync">
+        <!-- Regenerate every minute so each */5 slot is picked up as it enters the window. -->
+        <schedule_generate_every>1</schedule_generate_every>
+        <!-- Schedule 10 minutes ahead: two */5 slots, so one slow run cannot leave a gap. -->
+        <schedule_ahead_for>10</schedule_ahead_for>
+        <!-- A pending schedule more than 5 minutes late is marked 'missed' rather than
+             run long after the moment it was meant for. -->
+        <schedule_lifetime>5</schedule_lifetime>
+        <history_cleanup_every>10</history_cleanup_every>
+        <history_success_lifetime>60</history_success_lifetime>
+        <history_failure_lifetime>4320</history_failure_lifetime>
+        <!-- Its own PHP process, so a slow publish run cannot hold up other groups -
+             the same reason this job has its own group at all. -->
+        <use_separate_process>1</use_separate_process>
+    </group>
+</config>

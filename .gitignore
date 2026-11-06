@@ -52,8 +52,8 @@
 .DS_Store
 Thumbs.db
 
-# Database dumps and archives
-*.sql
-*.sql.gz
-*.zip
-*.tar.gz
+# Database dumps and archives (root only: Magento's own test fixtures under dev/tests are kept)
+/*.sql
+/*.sql.gz
+/*.zip
+/*.tar.gz

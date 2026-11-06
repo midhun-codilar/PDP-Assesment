@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Communication/etc/communication.xsd">
+    <!--
+        request="string" - the message body is just the product ID. Deliberately the
+        smallest possible payload: a message is a pointer to work, not a snapshot of it,
+        so the consumer always reads current data rather than whatever was true when the
+        cron ran five minutes ago.
+    -->
+    <topic name="codilar.inventory.sync" is_synchronous="false" request="string">
+        <handler name="codilarInventorySyncHandler"
+                 type="Codilar\InventorySyncQueue\Model\Consumer\InventorySyncHandler"
+                 method="process"/>
+    </topic>
+</config>

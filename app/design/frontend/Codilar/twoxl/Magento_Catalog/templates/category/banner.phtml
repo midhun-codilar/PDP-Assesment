@@ -1,0 +1,22 @@
+<?php
+/**
+ * Category hero banner, uploaded per category under Content > Category Banner.
+ *
+ * The category name stays in the regular page title below, so the banner is image only
+ * and carries the name as alt text instead of a second heading.
+ *
+ * @var \Magento\Catalog\Block\Category\View $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Codilar\Twoxl\ViewModel\CategoryBanner $banner
+ */
+$banner = $block->getData('banner');
+$category = $block->getCurrentCategory();
+$bannerUrl = $banner->getBannerUrl($category);
+?>
+<?php if ($bannerUrl): ?>
+    <div class="category-banner">
+        <img class="category-banner__image"
+             src="<?= $escaper->escapeUrl($bannerUrl) ?>"
+             alt="<?= $escaper->escapeHtmlAttr($category->getName()) ?>"/>
+    </div>
+<?php endif; ?>

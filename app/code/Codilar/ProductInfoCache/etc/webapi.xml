@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <!--
+        The store id is an explicit path parameter rather than Magento's /rest/<store_code>/
+        prefix, because the whole point of this endpoint is to ask for a specific store and
+        watch which cache entry answers. :productId and :storeId map onto the service
+        method arguments of the same name.
+
+        anonymous access: this returns only product name and description, which the
+        storefront already shows to everyone. If you need it locked down, swap the
+        resource for <resource ref="Magento_Catalog::products"/> and call it with an
+        admin bearer token.
+    -->
+    <route url="/V1/codilar/product-info/:productId/store/:storeId" method="GET">
+        <service class="Codilar\ProductInfoCache\Api\ProductInfoApiInterface" method="getProductInfo"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

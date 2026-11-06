@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+  Guest wish list page. Not cacheable: the list comes from the visitor's own cookie.
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <meta name="robots" content="NOINDEX,NOFOLLOW"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" name="twoxl.guest.wishlist.page"
+                   template="Codilar_Twoxl::wishlist/guest.phtml" cacheable="false">
+                <arguments>
+                    <argument name="wishlist" xsi:type="object">Codilar\Twoxl\ViewModel\GuestWishlistPage</argument>
+                    <argument name="price_formatter" xsi:type="object">Codilar\Twoxl\ViewModel\PriceFormatter</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,32 @@
+<?php
+/**
+ * Regional strip under the header: wording and accent colour come from store scoped config,
+ * so each storefront says its own thing. See Codilar\Twoxl\ViewModel\RegionBanner.
+ *
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+/** @var \Codilar\Twoxl\ViewModel\RegionBanner $region */
+$region = $block->getData('region_banner');
+
+if (!$region->isEnabled()) {
+    return;
+}
+
+$headline = $region->getHeadline();
+$subline = $region->getSubline();
+?>
+<style>
+    :root { --twoxl-accent: <?= /* @noEscape */ $region->getAccent() ?>; }
+</style>
+<div class="twoxl-region">
+    <div class="twoxl-region__inner">
+        <?php if ($headline): ?>
+            <strong class="twoxl-region__headline"><?= $escaper->escapeHtml(__($headline)) ?></strong>
+        <?php endif; ?>
+        <?php if ($subline): ?>
+            <span class="twoxl-region__subline"><?= $escaper->escapeHtml(__($subline)) ?></span>
+        <?php endif; ?>
+        <span class="twoxl-region__currency"><?= $escaper->escapeHtml($region->getCurrencyCode()) ?></span>
+    </div>
+</div>

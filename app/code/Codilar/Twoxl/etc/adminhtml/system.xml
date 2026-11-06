@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Two config areas:
+ *   General > 2XL Home > Region Strip, and the standalone Enquiries tab.
+ *
+ * Every field is showInStore="1", which is what puts the scope switcher on the page and lets
+ * one storefront say something different from the other without a code change.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <!-- Its own entry in the Configuration panel, alongside General, Catalog, Security and so on. -->
+        <tab id="twoxl_enquiries" translate="label" sortOrder="305">
+            <label>Enquiries</label>
+        </tab>
+
+        <section id="twoxl_enquiry" translate="label" type="text" sortOrder="10"
+                 showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Product Enquiries</label>
+            <tab>twoxl_enquiries</tab>
+            <resource>Codilar_Twoxl::enquiry_config</resource>
+
+            <group id="general" translate="label" type="text" sortOrder="10"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Enquiry Form</label>
+                    <comment>Hides the form on product pages and rejects posts to twoxl/enquiry/save when off.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <frontend_model>Codilar\Twoxl\Block\Adminhtml\System\Config\Form\Field\Toggle</frontend_model>
+                </field>
+                <field id="heading" translate="label" type="text" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Form Heading</label>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+                <field id="intro_text" translate="label" type="textarea" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Intro Text</label>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+                <field id="success_message" translate="label" type="textarea" sortOrder="40"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Success Message</label>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+            </group>
+
+            <group id="form" translate="label" type="text" sortOrder="20"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Form Fields</label>
+                <field id="require_phone" translate="label" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Phone Number Required</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="message_max_length" translate="label comment" type="text" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Message Maximum Length</label>
+                    <comment>Characters. Longer messages are trimmed to this length before they are stored.</comment>
+                    <validate>required-entry validate-digits validate-digits-range digits-range-1-5000</validate>
+                </field>
+            </group>
+
+            <group id="notification" translate="label" type="text" sortOrder="30"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Admin Notification</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Email a Copy on New Enquiry</label>
+                    <comment>A failed send never blocks the enquiry; it is written to the exception log instead.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="recipient_email" translate="label comment" type="text" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Send To</label>
+                    <comment>Comma separated for more than one recipient.</comment>
+                    <validate>required-entry</validate>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+                <field id="sender" translate="label" type="select" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+                <field id="template" translate="label" type="select" sortOrder="40"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+            </group>
+        </section>
+
+        <section id="twoxl" translate="label" type="text" sortOrder="300"
+                 showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>2XL Home</label>
+            <tab>general</tab>
+            <resource>Codilar_Twoxl::config</resource>
+            <group id="region" translate="label" type="text" sortOrder="10"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Region Strip</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="headline" translate="label" type="text" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Headline</label>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+                <field id="subline" translate="label" type="text" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Sub line</label>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+                <field id="accent" translate="label comment" type="text" sortOrder="40"
+                       showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Accent Colour</label>
+                    <comment>Six digit hex, including the hash - for example #a8731a. Anything else is ignored.</comment>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

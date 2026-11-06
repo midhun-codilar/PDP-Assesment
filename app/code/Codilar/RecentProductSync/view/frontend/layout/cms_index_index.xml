@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <!--
+                cacheable="false" is what makes a 5-second TTL visible. A page sitting in
+                the full page cache does not re-render just because time passed, so with
+                FPC on, an expired item stays on screen until something evicts the page.
+
+                The cost is real and site-wide: ONE non-cacheable block makes the WHOLE
+                page uncacheable, so every homepage hit is a full Magento render. That is
+                the right trade for watching a 5-second window on a dev site, and the wrong
+                one for production. Raise RowLifetime::TTL_SECONDS to something realistic
+                and delete this attribute to get the full page cache back.
+            -->
+            <block class="Codilar\RecentProductSync\Block\RecentProducts"
+                   name="codilar.recent.products"
+                   template="Codilar_RecentProductSync::recent-products.phtml"
+                   cacheable="false">
+                <arguments>
+                    <!-- Spec asks for 5-10; 8 fills the grid at every breakpoint. -->
+                    <argument name="limit" xsi:type="number">8</argument>
+                    <argument name="heading" xsi:type="string" translate="true">Recently Updated Products</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

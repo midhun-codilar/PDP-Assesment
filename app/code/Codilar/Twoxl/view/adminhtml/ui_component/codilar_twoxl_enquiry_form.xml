@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">codilar_twoxl_enquiry_form.enquiry_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Enquiry</item>
+        <!--
+            Without this the form falls back to form/default.phtml, whose loading mask waits on
+            "<name>.areas" - a component only a tabbed form creates. A single-fieldset form never
+            registers it, so the mask never lifts and the page spins forever.
+        -->
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="back" class="Codilar\Twoxl\Block\Adminhtml\Enquiry\Edit\Button\Back"/>
+            <button name="delete" class="Codilar\Twoxl\Block\Adminhtml\Enquiry\Edit\Button\Delete"/>
+            <button name="save_and_continue" class="Codilar\Twoxl\Block\Adminhtml\Enquiry\Edit\Button\SaveAndContinue"/>
+            <button name="save" class="Codilar\Twoxl\Block\Adminhtml\Enquiry\Edit\Button\Save"/>
+        </buttons>
+        <namespace>codilar_twoxl_enquiry_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>codilar_twoxl_enquiry_form.enquiry_form_data_source</dep>
+        </deps>
+    </settings>
+
+    <dataSource name="enquiry_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="twoxl_admin/enquiry/save"/>
+        </settings>
+        <dataProvider class="Codilar\Twoxl\Model\ProductEnquiry\DataProvider" name="enquiry_form_data_source">
+            <settings>
+                <requestFieldName>entity_id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="general">
+        <settings>
+            <label translate="true">Enquiry Details</label>
+        </settings>
+
+        <field name="entity_id" formElement="hidden">
+            <settings>
+                <dataType>text</dataType>
+            </settings>
+        </field>
+
+        <field name="name" formElement="input" sortOrder="10">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Name</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="email" formElement="input" sortOrder="20">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Email</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                    <rule name="validate-email" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="phone" formElement="input" sortOrder="30">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Phone</label>
+            </settings>
+        </field>
+        <field name="sku" formElement="input" sortOrder="40">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">SKU</label>
+            </settings>
+        </field>
+        <field name="message" formElement="textarea" sortOrder="50">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Message</label>
+            </settings>
+        </field>
+        <field name="status" formElement="select" sortOrder="60">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>number</dataType>
+                <label translate="true">Status</label>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Codilar\Twoxl\Model\Source\EnquiryStatus"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+    </fieldset>
+</form>

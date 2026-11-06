@@ -9,7 +9,6 @@
  */
 $home = $block->getData('home');
 $priceFormatter = $block->getData('price_formatter');
-$aed = '<i class="aed-symbol" role="img" aria-label="AED"></i>';
 ?>
 <section class="home-products">
     <span class="home-rule"></span>
@@ -23,8 +22,8 @@ $aed = '<i class="aed-symbol" role="img" aria-label="AED"></i>';
                 </a>
                 <a class="home-card__name" href="<?= $escaper->escapeUrl($home->getUrl($product['url'])) ?>"><?= $escaper->escapeHtml($product['name']) ?></a>
                 <p class="home-card__prices">
-                    <span class="home-card__old"><?= /* @noEscape */ $aed ?> <?= $escaper->escapeHtml($priceFormatter->formatNumber($product['regular'])) ?></span>
-                    <span class="home-card__price"><?= /* @noEscape */ $aed ?> <?= $escaper->escapeHtml($priceFormatter->formatNumber($product['price'])) ?></span>
+                    <span class="home-card__old"><?= /* @noEscape */ $priceFormatter->money((float)$product['regular']) ?></span>
+                    <span class="home-card__price"><?= /* @noEscape */ $priceFormatter->money((float)$product['price']) ?></span>
                     <span class="home-card__off">(<?= (int)$product['discount'] ?>% <?= $escaper->escapeHtml(__('off')) ?>)</span>
                 </p>
             </li>
